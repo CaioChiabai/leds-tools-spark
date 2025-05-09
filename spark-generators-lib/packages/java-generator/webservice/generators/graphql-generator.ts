@@ -1,21 +1,24 @@
 import path from 'path'
 import fs from 'fs'
-import { createPath } from '../../shared/generator-utils.js'
-import { LocalEntity, Model, isLocalEntity, isModule } from '../../shared/ast.js'
+import { createPath } from '../../../shared/generator-utils.js'
+import { LocalEntity, Model, isLocalEntity, isModule } from '../../../shared/ast.js'
 import { Generated, expandToStringWithNL, toString } from 'langium/generate'
+import { IGenerator } from "../../../shared/iGenerator.js";
+
 //Relation
 
+export class GraphQLGenerator implements IGenerator {
+  generate(model: Model, targetFolder: string): void {
+    if (!model.configuration) return;
 
-export function generateGraphQL(application: Model, target_folder: string) {
-    if (application.configuration){
+    const RESOURCE_PATH = createPath(targetFolder, "src/main/resources");
+    const GRAPHQL_PATH = createPath(RESOURCE_PATH, "graphql");
 
-        const RESOURCE_PATH = createPath(target_folder, "src/main/resources")
-        const GRAPHQL_PATH = createPath(RESOURCE_PATH, "graphql")
-
-        fs.writeFileSync(path.join(GRAPHQL_PATH, 'schema.graphqls'), toString(generateSchemaGraphQL(application)))
-        
-        
-    }
+    fs.writeFileSync(
+      path.join(GRAPHQL_PATH, 'schema.graphqls'),
+      toString(generateSchemaGraphQL(model))
+    );
+  }
 }
 /*
 function generateRelationSchemaGraphQL(relation: Relation): Generated{

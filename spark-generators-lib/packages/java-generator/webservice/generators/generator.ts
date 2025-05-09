@@ -1,7 +1,7 @@
-import { Model } from "../../shared/ast.js";
+import { Model } from "../../../shared/ast.js";
 import fs from "fs";
 import { generateConfigs } from "./config-generator.js";
-import { generateModules } from "./module-generator.js";
+import { generateModules } from "../module-generator.js";
 import { generateGraphQL } from "./graphql-generator.js";
 
 export function generate(model: Model, target_folder: string) : void {

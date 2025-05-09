@@ -1,8 +1,16 @@
 import path from 'path'
 import fs from 'fs'
-import { createPath } from '../../shared/generator-utils.js'
+import { createPath } from '../../../shared/generator-utils.js'
 import { Generated, expandToStringWithNL, toString } from 'langium/generate'
-import { Configuration, Model, ModuleImport, isModuleImport } from '../../shared/ast.js'
+import { Configuration, Model, ModuleImport, isModuleImport } from '../../../shared/ast.js'
+import { IGenerator } from "../../../shared/iGenerator.js";
+
+export class ConfigGenerator implements IGenerator {
+  generate(model: Model, targetFolder: string): void {
+    // lógica atual de generateConfigs aqui
+    fs.writeFileSync(`${targetFolder}/config.txt`, "config gerado");
+  }
+}
 
 export function generateConfigs(model: Model, target_folder: string) {
   
