@@ -1,1 +1,1 @@
-export { generate as generateWebservice } from './generators/generator.js';
+export { WebServiceGeneratorFactory } from './generators/generator.js';

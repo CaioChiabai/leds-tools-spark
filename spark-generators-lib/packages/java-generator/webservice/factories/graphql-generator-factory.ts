@@ -1,9 +1,9 @@
-import { GeneratorFactory } from "../../factories/generator-factory.js";
-import { ConfigGenerator } from "../generators/config-generator.js";
-import { IGenerator } from "../../../shared/iGenerator.js";
+import { IGenerator } from "../../../shared/igenerator.js";
+import { GraphQLGenerator } from "../generators/graphql-generator.js";
+import { AbstractGeneratorFactory } from "../../factories/abstract-generator-factory.ts.js";
 
-export class ConfigGeneratorFactory extends GeneratorFactory {
+export class GraphQLGeneratorFactory extends AbstractGeneratorFactory {
   createGenerator(): IGenerator {
-    return new ConfigGenerator();
+    return new GraphQLGenerator();
   }
 }
