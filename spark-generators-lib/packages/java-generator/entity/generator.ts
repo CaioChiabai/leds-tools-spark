@@ -1,17 +1,9 @@
 import { Model } from "../../shared/ast.js";
-import fs from "fs";
-import { generateConfigs } from "./config-generator.js";
-import { generateModules } from "./module-generator.js";
-import { generateSchemaSQLHelper } from "./sql-generator.js";
-import { generateDebezium } from "./debezium-generator.js";
+import { StandardEntityGeneratorFactory } from "./StandardEntityGeneratorFactory.js"
 
-export function generate(model: Model, target_folder: string) : void {
-    fs.mkdirSync(target_folder, {recursive:true})
+export function generate(model: Model, target_folder: string, type: string = "standard"): void {
+    let factory = new StandardEntityGeneratorFactory();
     
-    generateConfigs(model, target_folder);
-    generateModules(model, target_folder);
-    generateSchemaSQLHelper(model,target_folder);
-    generateDebezium(model,target_folder);
-  
+    factory.generateWebService(model, target_folder);
 }
   

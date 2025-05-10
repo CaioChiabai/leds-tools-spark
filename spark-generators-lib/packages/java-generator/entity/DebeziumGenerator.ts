@@ -3,8 +3,10 @@ import fs from 'fs'
 import { Configuration, Model, isLocalEntity, isModule } from '../../shared/ast.js'
 import { createPath } from '../../shared/generator-utils.js'
 import { Generated, expandToStringWithNL, toString } from 'langium/generate'
+import { IJavaGenerator } from '../interfaces/IJavaGenerator.js'
 
-export function generateDebezium(model: Model, target_folder: string) {
+export class DebeziumGenerator implements IJavaGenerator{
+  generate(model: Model, target_folder: string) {
 
     if (model.configuration){
   
@@ -12,20 +14,20 @@ export function generateDebezium(model: Model, target_folder: string) {
 
         // criando a pasta que salva o SQL
         const SQL_PATH = createPath(target_folder, "sql")
-        fs.writeFileSync(path.join(SQL_PATH, 'debezium.sql'), toString(generateDebeziumSQL(model)))
+        fs.writeFileSync(path.join(SQL_PATH, 'debezium.sql'), toString(this.generateDebeziumSQL(model)))
 
         const REGISTER_PATH = createPath(target_folder, "register")
-        fs.writeFileSync(path.join(REGISTER_PATH, name+'-register.json'), toString(generateDebeziumRegister(model.configuration)))
+        fs.writeFileSync(path.join(REGISTER_PATH, name+'-register.json'), toString(this.generateDebeziumRegister(model.configuration)))
     }
-}
+  }
 
-function generateDebeziumSQL(model: Model): Generated{
+  private generateDebeziumSQL(model: Model): Generated{
     return expandToStringWithNL`
     ${model.abstractElements.filter(isModule).map(module => module.elements.filter(isLocalEntity).map(entity => !entity.is_abstract? `ALTER TABLE public.${entity.name.toLowerCase()}  REPLICA IDENTITY FULL;`: undefined).join('\n')).join('\n')}  
     `
   }
 
-  function generateDebeziumRegister (configuration: Configuration): Generated{
+  private generateDebeziumRegister (configuration: Configuration): Generated{
 
     const name = configuration?.name?.toLowerCase() ?? "nodefined"
 
@@ -50,4 +52,4 @@ function generateDebeziumSQL(model: Model): Generated{
     `
   
   }
-  
+}
