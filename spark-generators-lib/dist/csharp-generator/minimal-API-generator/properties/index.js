@@ -1,1 +1,0 @@
-export { generate as generatepropierties } from '../properties/generator.js';

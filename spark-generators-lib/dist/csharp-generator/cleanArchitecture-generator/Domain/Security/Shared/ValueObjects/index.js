@@ -1,1 +1,0 @@
-export { generate as generateDomainSecSharValueobjects } from './generate.js';

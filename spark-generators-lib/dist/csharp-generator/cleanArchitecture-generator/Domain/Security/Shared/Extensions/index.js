@@ -1,1 +1,0 @@
-export { generate as generateDomainSecSharExtensions } from './generate.js';

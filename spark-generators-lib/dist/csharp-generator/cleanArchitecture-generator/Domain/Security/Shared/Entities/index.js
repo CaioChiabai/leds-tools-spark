@@ -1,1 +1,0 @@
-export { generate as generateDomainSecSharEntities } from './generate.js';

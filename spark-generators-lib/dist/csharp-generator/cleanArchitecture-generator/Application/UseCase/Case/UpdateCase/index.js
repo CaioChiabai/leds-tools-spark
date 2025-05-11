@@ -1,1 +1,0 @@
-export { generate as generateUpdatecase } from '../UpdateCase/generate.js';

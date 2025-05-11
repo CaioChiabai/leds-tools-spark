@@ -1,1 +1,0 @@
-export { generate as generateInfraEntitiesconfiguration } from './generate.js';

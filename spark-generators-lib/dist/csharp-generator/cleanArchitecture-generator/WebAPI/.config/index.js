@@ -1,1 +1,0 @@
-export { generate as generateWebapiconfig } from './generate.js';

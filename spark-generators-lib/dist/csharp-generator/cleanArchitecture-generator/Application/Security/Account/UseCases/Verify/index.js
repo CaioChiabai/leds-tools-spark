@@ -1,1 +1,0 @@
-export { generate as generateVerify } from '../Verify/generate.js';

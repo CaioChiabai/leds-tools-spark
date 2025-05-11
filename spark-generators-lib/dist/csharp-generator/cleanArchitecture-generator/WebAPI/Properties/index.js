@@ -1,1 +1,0 @@
-export { generate as generateWebProperties } from './generate.js';

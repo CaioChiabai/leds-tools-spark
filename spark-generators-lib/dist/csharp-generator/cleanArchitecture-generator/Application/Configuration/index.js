@@ -1,1 +1,0 @@
-export { generate as generateConfiguration } from '../Configuration/generate.js';

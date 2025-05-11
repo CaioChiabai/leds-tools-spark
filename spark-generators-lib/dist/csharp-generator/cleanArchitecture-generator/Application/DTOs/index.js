@@ -1,1 +1,0 @@
-export { generate as generateDto } from '../DTOs/generate.js';

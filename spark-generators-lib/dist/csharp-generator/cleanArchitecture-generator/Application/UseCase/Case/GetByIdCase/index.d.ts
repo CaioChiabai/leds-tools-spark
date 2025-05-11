@@ -1,1 +1,0 @@
-export { generate as generateByidcase } from '../GetByIdCase/generate.js';

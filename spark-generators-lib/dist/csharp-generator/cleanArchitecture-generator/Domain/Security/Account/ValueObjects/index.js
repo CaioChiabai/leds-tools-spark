@@ -1,1 +1,0 @@
-export { generate as generateDomainSecAccValueobjects } from './generate.js';

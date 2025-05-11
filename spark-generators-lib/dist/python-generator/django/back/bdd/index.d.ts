@@ -1,1 +1,0 @@
-export { generate as generateBDD } from './generator.js';

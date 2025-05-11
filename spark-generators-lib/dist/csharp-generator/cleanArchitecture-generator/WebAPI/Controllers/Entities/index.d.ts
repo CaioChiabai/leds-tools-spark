@@ -1,1 +1,0 @@
-export { generate as generateWebContEntities } from './generate.js';

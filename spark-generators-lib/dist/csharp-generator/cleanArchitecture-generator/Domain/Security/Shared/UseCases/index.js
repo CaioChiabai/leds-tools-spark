@@ -1,1 +1,0 @@
-export { generate as generateDomainSecSharUsecases } from './generate.js';

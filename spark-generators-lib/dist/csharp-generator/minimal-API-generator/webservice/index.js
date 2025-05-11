@@ -1,1 +1,0 @@
-export { generate as generateWebservice } from './generator.js';

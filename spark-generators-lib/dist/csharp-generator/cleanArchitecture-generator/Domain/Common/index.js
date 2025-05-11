@@ -1,1 +1,0 @@
-export { generate as generateDomaincommon } from './generate.js';

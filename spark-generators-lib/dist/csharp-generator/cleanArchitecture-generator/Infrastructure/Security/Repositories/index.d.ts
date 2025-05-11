@@ -1,1 +1,0 @@
-export { generate as generateInfraSecRepositories } from './generate.js';

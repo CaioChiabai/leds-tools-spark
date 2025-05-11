@@ -1,1 +1,0 @@
-export { generate as generateSecurityshared } from '../UseCases/generate.js';

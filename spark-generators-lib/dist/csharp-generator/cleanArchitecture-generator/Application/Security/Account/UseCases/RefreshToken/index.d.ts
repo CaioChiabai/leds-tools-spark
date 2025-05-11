@@ -1,1 +1,0 @@
-export { generate as generateRefreshToken } from '../RefreshToken/generate.js';

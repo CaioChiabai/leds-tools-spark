@@ -1,1 +1,0 @@
-export { generate as generateDomaintestHelpers } from './generate.js';
