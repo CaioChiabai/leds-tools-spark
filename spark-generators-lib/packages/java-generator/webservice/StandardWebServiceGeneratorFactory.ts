@@ -2,7 +2,7 @@ import { IJavaGenerator } from "../interfaces/IJavaGenerator.js";
 import { ConfigGenerator } from "./ConfigGenerator.js";
 import { ModuleGenerator } from "./ModuleGenerator.js";
 import { GraphQLGenerator } from "./GraphQLGenerator.js";
-import { WebServiceGeneratorFactory } from "./WebServiceGeneratorFactory.js";
+import { WebServiceGeneratorFactory } from "./AbstractWebServiceGeneratorFactory.js";
 
 export class StandardWebServiceGeneratorFactory extends WebServiceGeneratorFactory {
     protected createGenerators(): IJavaGenerator[] {
