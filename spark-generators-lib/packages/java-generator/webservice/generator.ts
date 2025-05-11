@@ -4,5 +4,5 @@ import { StandardWebServiceGeneratorFactory } from "./StandardWebServiceGenerato
 export function generate(model: Model, target_folder: string, type: string = "standard"): void {
     let factory = new StandardWebServiceGeneratorFactory();
     
-    factory.generateWebService(model, target_folder);
+    factory.generate(model, target_folder);
 }

@@ -4,5 +4,5 @@ import { StandardDocumentationGeneratorFactory } from "./StandardDocumentationGe
 export function generate(model: Model, target_folder: string, type: string = "standard"): void {
     let factory = new StandardDocumentationGeneratorFactory();
     
-    factory.generateWebService(model, target_folder);
+    factory.generate(model, target_folder);
 }

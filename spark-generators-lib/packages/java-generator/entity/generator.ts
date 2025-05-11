@@ -4,6 +4,6 @@ import { StandardEntityGeneratorFactory } from "./StandardEntityGeneratorFactory
 export function generate(model: Model, target_folder: string, type: string = "standard"): void {
     let factory = new StandardEntityGeneratorFactory();
     
-    factory.generateWebService(model, target_folder);
+    factory.generate(model, target_folder);
 }
   

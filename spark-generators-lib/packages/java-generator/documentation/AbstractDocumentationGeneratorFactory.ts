@@ -3,7 +3,7 @@ import { IJavaGenerator } from "../interfaces/IJavaGenerator.js";
 import fs from "fs";
 
 export abstract class AbstractDocumentationGeneratorFactory {
-    public generateWebService(model: Model, target_folder: string): void {
+    public generate(model: Model, target_folder: string): void {
         fs.mkdirSync(target_folder, {recursive: true});
         
         const generators = this.createGenerators();
