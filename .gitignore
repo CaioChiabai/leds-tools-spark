@@ -9,4 +9,4 @@ static/bundle/
 static/monaco-editor-workers/
 static/worker/
 syntaxes/
-spark-generators-lib/dist/
+spark-generators-lib/dist/*
