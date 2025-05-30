@@ -21,7 +21,7 @@ export function generate(model: Model, filePath: string, destination: string | u
         } else if (model.configuration?.language?.startsWith("csharp")) {
             csharpGenerator(model, final_destination);
         } else if (model.configuration?.language === "java") {
-            javaGenerate(model as unknown as LibModel.Model, final_destination);
+            javaGenerate(model as unknown as LibModel.Model, final_destination, "springboot");
         }
     } else if (opts.only_front) {
         // Frontend generation
@@ -42,7 +42,7 @@ export function generate(model: Model, filePath: string, destination: string | u
         } else if (model.configuration?.language?.startsWith("csharp")) {
             csharpGenerator(model, final_destination);
         } else if (model.configuration?.language === 'java') {
-            javaGenerate(model as unknown as LibModel.Model, final_destination);
+            javaGenerate(model as unknown as LibModel.Model, final_destination, "springboot");
         }
 
         docGenerate(model, final_destination);
