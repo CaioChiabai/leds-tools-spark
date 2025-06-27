@@ -13,7 +13,7 @@ export function generate(model: Model.Model, target_folder: string): void {
   fs.mkdirSync(target_folder_back, { recursive: true });
 
   if (model.configuration?.language === "csharp-minimal-api") {
-    generators.miniminal.generate(model, target_folder);
+    generators.miniminal.generate(model, target_folder_projname);
 
   } 
   else {
