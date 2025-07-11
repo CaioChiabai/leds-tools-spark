@@ -1,10 +1,13 @@
+// Gerar apenas DTOs de uso comum
+
 import { CompositeGeneratorNode, Generated, expandToString, expandToStringWithNL } from "langium/generate"
-import { Attribute, EnumEntityAtribute, LocalEntity, Model, isLocalEntity, isModule } from "../../../../../../language/generated/ast.js"
+import { Attribute, EnumEntityAtribute, LocalEntity, Model, isLocalEntity} from "../../../../../../language/generated/ast.js"
 import fs from "fs"
 import path from "path"
 import { capitalizeString } from "../../../../../util/generator-utils.js"
 import { RelationInfo, processRelations } from "../../../../../util/relations.js"
-export function generate(model: Model, target_folder: string) : void {
+
+export function generate(model: Model, listClassRefCRUD: LocalEntity[], target_folder: string) : void {
 
   const common_folder = target_folder + '/Common'
   const entities_folder = target_folder + '/Entities'
@@ -20,20 +23,14 @@ export function generate(model: Model, target_folder: string) : void {
   fs.writeFileSync(path.join(common_folder, "ApiResponse.cs"), generateApiResponse(model))
   fs.writeFileSync(path.join(common_folder, "ResponseBase.cs"), generateResponseBase(model))
 
-  const modules =  model.abstractElements.filter(isModule);
-  const all_entities = modules.map(module => module.elements.filter(isLocalEntity)).flat()
-  const relation_maps = processRelations(all_entities)
+  const relation_maps = processRelations(listClassRefCRUD)
   
-  for(const mod of modules) {
-      for(const cls of mod.elements.filter(isLocalEntity)) {
-          const { relations } = getAttrsAndRelations(cls, relation_maps)
-          const cls_name = `${cls.name}`
-          fs.writeFileSync(path.join(response_folder, `${cls_name}ResponseDTO.cs`), generateResponseDTO(model, cls, relations))
-          fs.writeFileSync(path.join(request_folder, `${cls_name}RequestDTO.cs`), generateRequestDTO(model, cls, relations))
-      }
-      
-    }
-
+  for(const cls of listClassRefCRUD) {
+      const { relations } = getAttrsAndRelations(cls, relation_maps)
+      const cls_name = `${cls.name}`
+      fs.writeFileSync(path.join(response_folder, `${cls_name}ResponseDTO.cs`), generateResponseDTO(model, cls, relations))
+      fs.writeFileSync(path.join(request_folder, `${cls_name}RequestDTO.cs`), generateRequestDTO(model, cls, relations))
+  }
 }
 
 function generateBaseDTO(model: Model) : string {

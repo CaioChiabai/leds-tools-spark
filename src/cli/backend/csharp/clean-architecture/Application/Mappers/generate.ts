@@ -1,44 +1,44 @@
+// Gerar adicionalmente pasta Authentication com arquivo UserMapper
+// e pasta Seguranca com arquivo UserMapper também
+
 import { expandToString, Generated } from "langium/generate"
-import { Attribute, LocalEntity, Model, isLocalEntity, isModule } from "../../../../../../language/generated/ast.js"
+import { Attribute, LocalEntity, Model, isLocalEntity } from "../../../../../../language/generated/ast.js"
 import fs from "fs"
 import path from "path"
 import { processRelations, RelationInfo } from "../../../../../util/relations.js"
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], listRefCRUD: LocalEntity[], target_folder: string) : void {
 
     const entities_folder = target_folder + '/Entities'
-
-    const modules =  model.abstractElements.filter(isModule);
   
-    const all_entities = modules.map(module => module.elements.filter(isLocalEntity)).flat()
-  
-    const relation_maps = processRelations(all_entities)
+    const listClassCRUDFlat = listClassCRUD.flat(1)
+    const relation_maps = processRelations(listClassCRUDFlat)
 
     fs.mkdirSync(entities_folder, {recursive: true})
 
-    for(const mod of modules) {
-        const mod_classes = mod.elements.filter(isLocalEntity)
-        for(const cls of mod_classes) {
-            let relationsMapping = ""
-            const {relations} = getAttrsAndRelations(cls, relation_maps)
-            relationsMapping += generateRelationsParameter(cls, relations)
-            relationsMapping += ";"
-            fs.writeFileSync(path.join(entities_folder,`${cls.name}Mapper.cs`), generateMappers(model, cls, relationsMapping))
-        }
+    for(const cls of listClassCRUD) {
+        let relationsMapping = ""
+        const {relations} = getAttrsAndRelations(cls, relation_maps)
+        relationsMapping += generateRelationsParameter(cls, relations)
+        relationsMapping += ";"
+        fs.writeFileSync(path.join(entities_folder,`${cls.name}Mapper.cs`), generateCRUDMappers(model, cls, relationsMapping))
     }
+
+    for(const cls of listRefCRUD) {
+      fs.writeFileSync(path.join(entities_folder,`${cls.name}Mapper.cs`), generateGetMappers(model, cls))
+  }
 }
 
-function generateMappers(model: Model, cls: LocalEntity, RelationsMapping: string) : string {
+function generateCRUDMappers(model: Model, cls: LocalEntity, RelationsMapping: string) : string {
     return expandToString`
 using AutoMapper;
-using ${model.configuration?.name}.Application.DTOs.Entities.Request;
-using ${model.configuration?.name}.Application.DTOs.Entities.Response;
-using ${model.configuration?.name}.Application.DTOs.Common;
-using ${model.configuration?.name}.Application.UseCase.Entities.${cls.name}Case.Create;
-using ${model.configuration?.name}.Application.UseCase.Entities.${cls.name}Case.Delete;
-using ${model.configuration?.name}.Application.UseCase.Entities.${cls.name}Case.GetById;
-using ${model.configuration?.name}.Application.UseCase.Entities.${cls.name}Case.Update;
 using ${model.configuration?.name}.Domain.Entities;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.${cls.name}Case.Create;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.${cls.name}Case.Delete;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.${cls.name}Case.GetById;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.${cls.name}Case.Update;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.DTOs;
+using ConectaFapes.Common.Utils.Responses;
 
 namespace ${model.configuration?.name}.Application.Mappers.Entities
 {
@@ -73,6 +73,42 @@ namespace ${model.configuration?.name}.Application.Mappers.Entities
             #endregion
         }
     }
+}`
+}
+
+function generateGetMappers(model: Model, cls: LocalEntity) : string {
+  return expandToString`
+using AutoMapper;
+using ConectaFapes.Common.Utils.Responses;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.${cls.name}Case.GetById;
+using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.DTOs;
+using ${model.configuration?.name}.Domain.Entities;
+
+namespace ${model.configuration?.name}.Application.Mappers.Entities
+{
+  public class ${cls.name}Mapper : Profile
+  {
+      public ${cls.name}Mapper()
+      {
+          #region Entidade para DTO's
+          CreateMap<${cls.name}, ${cls.name}ResponseDTO>().ReverseMap();
+          CreateMap<${cls.name}, ${cls.name}RequestDTO>().ReverseMap();
+              
+          #endregion
+
+          #region Entidade para Commads de Caso de Uso
+          CreateMap<${cls.name}, GetById${cls.name}Command>().ReverseMap();
+          #endregion
+
+          #region DTO's para Commads de Caso de Uso
+
+          #endregion
+
+          #region Conversão para api response
+          CreateMap<ApiResponse, ${cls.name}RequestDTO>().ReverseMap();
+          #endregion
+      }
+  }
 }`
 }
 

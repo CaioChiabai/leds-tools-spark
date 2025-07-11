@@ -1,4 +1,4 @@
-import type { Model } from '../language/generated/ast.js';
+import type { Model, UseCase } from '../language/generated/ast.js';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import { SPARKLanguageMetaData } from '../language/generated/module.js';
@@ -19,7 +19,8 @@ const packageContent = await fs.readFile(packagePath, 'utf-8');
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const services = createSPARKServices(NodeFileSystem).SPARK;
     const model = await extractAstNode<Model>(fileName, services);
-    const generatedFilePath = generate(model, fileName,opts.destination, opts);
+    const usecase = await extractAstNode<UseCase>(fileName, services);
+    const generatedFilePath = generate(model, usecase, fileName,opts.destination, opts);
     console.log(chalk.green(`Code generated successfully: ${generatedFilePath}`));
 };
 
@@ -33,10 +34,12 @@ export type GenerateOptions = {
     only_Backlog?:boolean
 }
 
+//import { version } from '../../package.json';
+
 export default function(): void {
     const program = new Command();
 
-    program.version(require('../../package.json').version);
+    // program.version(require('../../package.json').version);
 
     const fileExtensions = SPARKLanguageMetaData.fileExtensions.join(', ');
     program

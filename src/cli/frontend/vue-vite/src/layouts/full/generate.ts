@@ -1,4 +1,4 @@
-import { Model } from "../../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../../language/generated/ast.js"
 import fs from "fs";
 import { createPath } from "../../../../../util/generator-utils.js";
 import { expandToString } from "langium/generate";
@@ -10,7 +10,7 @@ import { generate as generateLogo } from "./logo/generate.js";
 import { generate as generateVerticalHeader } from "./vertical-header/generate.js";
 import { generate as generateVerticalSidebar } from "./vertical-sidebar/generate.js";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
 
     const customizer_folder = createPath(target_folder, "customizer")
     const horizontal_header_folder =  createPath(target_folder, "horizontal-header")
@@ -33,7 +33,7 @@ export function generate(model: Model, target_folder: string) : void {
     generateHorizontalSideBar(horizontal_sidebar_folder)
     generateLogo(logo_folder)
     generateVerticalHeader(vertical_header_folder)
-    generateVerticalSidebar(model, vertical_sidebar_folder)
+    generateVerticalSidebar(model, listClassCRUD, vertical_sidebar_folder)
     
 }  
 

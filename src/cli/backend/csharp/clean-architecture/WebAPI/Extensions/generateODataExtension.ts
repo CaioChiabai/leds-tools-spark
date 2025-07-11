@@ -1,12 +1,12 @@
 import { expandToString } from "langium/generate";
-import { isLocalEntity, isModule, Model } from "../../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../../language/generated/ast.js"
 
-export function generateODataExtension(model: Model): string{
+export function generateODataExtension(model: Model, listClassRefCRUD: LocalEntity[]): string{
     return expandToString`
-using ${model.configuration?.name}.Application.DTOs.Entities.Response;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+${generateImportResponse(model, listClassRefCRUD)}
 
 namespace ${model.configuration?.name}.WebApi.Extensions
 {
@@ -15,7 +15,7 @@ namespace ${model.configuration?.name}.WebApi.Extensions
         private static IEdmModel GetEdmModel()
         {
             ODataConventionModelBuilder builder = new();
-            ${generateEntitySets(model)}
+            ${generateEntitySets(model, listClassRefCRUD)}
             return builder.GetEdmModel();
         }
 
@@ -39,16 +39,27 @@ namespace ${model.configuration?.name}.WebApi.Extensions
 }`
 }
 
-function generateEntitySets(model: Model) : string {
+function generateImportResponse(model: Model, listClassRefCRUD: LocalEntity[]) : string {
+    
+    let addImport = ""
+
+    for (const cls of listClassRefCRUD) {
+        addImport += `using ${model.configuration?.name}.Application.Features.CRUD.${cls.name}Entity.DTOs;\n`
+    }
+    
+    return addImport
+}
+
+function generateEntitySets(model: Model, listClassRefCRUD: LocalEntity[]) : string {
   
-    const modules =  model.abstractElements.filter(isModule);
+    // const modules =  model.abstractElements.filter(isModule);
     let entitySets = "";
     
-    for(const mod of modules) {
-        for(const cls of mod.elements.filter(isLocalEntity)) {
-            entitySets += `builder.EntitySet<${cls.name}ResponseDTO>("${cls.name.toLowerCase()}"); \n`
-        }
+    //for(const mod of modules) {
+    for(const cls of listClassRefCRUD) {
+        entitySets += `builder.EntitySet<${cls.name}ResponseDTO>("${cls.name.toLowerCase()}"); \n`
     }
+    //}
 
     return entitySets;
   

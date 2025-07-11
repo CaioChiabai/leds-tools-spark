@@ -2,9 +2,9 @@ import fs from "fs";
 import { expandToString } from "langium/generate";
 import path from "path";
 import { createPath } from "../../../../../../util/generator-utils.js";
-import { isLocalEntity, isModule, Model } from "../../../../../../../language/generated/ast.js";
+import { LocalEntity, Model } from "../../../../../../../language/generated/ast.js";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
     
     const NavCollapse_folder =  createPath(target_folder, "NavCollapse")
     const NavGroup_folder = createPath(target_folder, "NavGroup")
@@ -17,7 +17,7 @@ export function generate(model: Model, target_folder: string) : void {
 
     fs.writeFileSync(path.join(target_folder, 'Icon.vue'), generateIcon());
     fs.writeFileSync(path.join(target_folder, 'VerticalSidebar.vue'), generateVerticalSidebar());
-    fs.writeFileSync(path.join(target_folder, 'sidebarItem.ts'), generateSidebarItem(model));
+    fs.writeFileSync(path.join(target_folder, 'sidebarItem.ts'), generateSidebarItem(model, listClassCRUD));
     fs.writeFileSync(path.join(NavGroup_folder, 'index.vue'), generateNavGroup());
     fs.writeFileSync(path.join(NavItem_folder, 'index.vue'), generateNavItem());
     fs.writeFileSync(path.join(NavCollapse_folder, 'NavCollapse.vue'), genenrateNavCollapse());
@@ -94,21 +94,17 @@ const authStore = useAuthStore();
 </template>`
 }
 
-function generateSidebarItem(model: Model): string {
-
-    const modules =  model.abstractElements.filter(isModule);
+function generateSidebarItem(model: Model, listClassCRUD: LocalEntity[]): string {
     
     let items = ""
-    for(const mod of modules) {
-        for(const cls of mod.elements.filter(isLocalEntity)) {
-            items += `
+    
+    for(const cls of listClassCRUD) {
+        items += `
   {
     title: "${cls.name}",
     icon: JumpRopeIcon,
     to: "/${cls.name}/Index${cls.name}",
   },`
-        }
-        
     }
 
     const result =  generateSidebarItemText(items)

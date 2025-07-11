@@ -1,19 +1,16 @@
-import { isLocalEntity, isModule, Model } from "../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../language/generated/ast.js"
 import fs from "fs";
 import { expandToString } from "langium/generate";
 import path from "path";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
 
     fs.writeFileSync(path.join(target_folder, "index.ts"), generateIndex())
     fs.writeFileSync(path.join(target_folder, "AuthRoutes.ts"), generateAuthRoutes())
-
-    const modules =  model.abstractElements.filter(isModule);
     
     let paths = ""
-    for(const mod of modules) {
-        for(const cls of mod.elements.filter(isLocalEntity)) {
-            paths += `
+    for(const cls of listClassCRUD) {
+        paths += `
 {
 
     name: '${cls.name}',
@@ -31,8 +28,6 @@ export function generate(model: Model, target_folder: string) : void {
     path: '/${cls.name}/form${cls.name}/:id?/:${cls.name}?',
     component: () => import('@/views/${model.configuration?.name}/${cls.name}/Form${cls.name}.vue'),
 },`
-        }
-        
     }
 
     fs.writeFileSync(path.join(target_folder, `MainRoutes.ts`), generateMainRoutes(paths))

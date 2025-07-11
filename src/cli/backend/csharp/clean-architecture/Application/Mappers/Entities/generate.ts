@@ -1,0 +1,1 @@
+// Gerar mapper para cada entidade

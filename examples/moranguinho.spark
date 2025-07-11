@@ -23,3 +23,47 @@ module Moranguinho {
     
     
 }
+
+usmodel Cad {
+    actor Adm
+
+    usecase CRUD {
+        name : "cadastro de propriedade"
+        uctype : crud
+        class : Moranguinho.Propriedade
+        performer : Cad.Adm
+    }
+
+    usecase GerenciarMilho {
+        name : "GerenciarMilho"
+        uctype : notcrud
+        route : "Gerenciar-Milho"
+        class : Moranguinho.Propriedade
+        performer : Cad.Adm
+        event bizoiar_milho {
+            name : "BizoiarMilho"
+            description : "Dar uma bizoiada marota no milho"
+            route : "OlharMilho"
+            action : "Dar uma bizoiada marota no milho"
+        }
+    }
+
+    usecase GerenciarMorango {
+        name : "GerenciarMorango"
+        uctype : notcrud
+        route : "GerenciarMorango"
+        class : Moranguinho.Propriedade
+        performer : Cad.Adm
+        event bizoiar_morango {
+            name : "BizoiarMorango"
+            description : "Dar uma bizoiada marota no morango"
+            route : "OlharMorango"
+            action : "Dar uma bizoiada marota no morango"
+        }
+        event colher_morango {
+            name : "ColherMorango"
+            description : "Colher morangos fresquinhos"
+            action : "Colher morangos fresquinhos"
+        }
+    }
+}

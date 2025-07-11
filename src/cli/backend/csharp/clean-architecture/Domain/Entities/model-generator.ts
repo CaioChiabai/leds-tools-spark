@@ -17,7 +17,7 @@ export function generateModel(cls: LocalEntity, is_supertype: boolean, relations
   AttClassParameters = AttClassParameters.slice(0, AttClassParameters.lastIndexOf(','))
 
   return expandToStringWithNL`
-using ${package_name}.Domain.Common;
+using ConectaFapes.Common.Domain.BaseEntities;
 using ${package_name}.Domain.Enums;
 using ${package_name}.Domain.Validation;
 using System.ComponentModel.DataAnnotations.Schema;

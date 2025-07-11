@@ -128,16 +128,11 @@ services:
       - backend
     ports:
       - "8080:8080"
-      - "8081:8081"
+      # - "8081:8081"
     depends_on:
       - sqlserver
     environment:
-      SqlServer: "Server=sqlserver,1433;Database=${model.configuration?.name?.toLowerCase()};User ID=sa;Password=Senha@123;Trusted_Connection=False;TrustServerCertificate=True;"
-      ApiKey: ""
-      JwtPrivateKey: ""
-      PasswordSaltKey: ""
-      DefaultFromEmail: ""
-      EmailApiKey: ""`
+      SqlServer: "Server=sqlserver,1433;Database=${model.configuration?.name?.toLowerCase()};User ID=sa;Password=Senha@123;Trusted_Connection=False;TrustServerCertificate=True;"`
 }
 
 function generateLaunchSettings(model: Model): string {
@@ -164,10 +159,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      # - ASPNETCORE_HTTPS_PORTS=8081
     ports:
       - "8080"
-      - "8081"
+      # - "8081"
     volumes:
       - \${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - \${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro`

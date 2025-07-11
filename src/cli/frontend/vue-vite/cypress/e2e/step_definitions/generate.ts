@@ -1,4 +1,4 @@
-import { Attribute, isLocalEntity, isModule, LocalEntity, Model } from "../../../../../../language/generated/ast.js"
+import { Attribute, isLocalEntity, LocalEntity, Model } from "../../../../../../language/generated/ast.js"
 import fs from "fs";
 import path from "path";
 //import { createPath } from "../../../../../util/generator-utils.js";
@@ -6,23 +6,19 @@ import { processRelations, RelationInfo } from "../../../../../util/relations.js
 import { generateDeleteFeature, generateDelete } from "./generateDelete.js"
 import { createPath } from "../../../../../util/generator-utils.js";
 
-export function generate(model: Model, target_folder: string) : void {
-
-    const modules =  model.abstractElements.filter(isModule);
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
   
-    const all_entities = modules.map(module => module.elements.filter(isLocalEntity)).flat()
+    //const all_entities = modules.map(module => module.elements.filter(isLocalEntity)).flat()
   
-    const relation_maps = processRelations(all_entities)
+    const relation_maps = processRelations(listClassCRUD)
 
-    for(const mod of modules) {
-      //const enumx = mod.elements.filter(isEnumX)
-      for(const cls of mod.elements.filter(isLocalEntity)) {
-          const {} = getAttrsAndRelations(cls, relation_maps)
-          const cls_folder = createPath(target_folder, `${cls.name}`)
-          fs.writeFileSync(path.join(target_folder, `delete${cls.name}.feature`), generateDeleteFeature(cls))
-          fs.writeFileSync(path.join(cls_folder, `delete${cls.name}.ts`), generateDelete(cls))
-      }
-        
+    //for(const mod of modules) {
+
+    for (const cls of listClassCRUD) {
+        const {} = getAttrsAndRelations(cls, relation_maps)
+        const cls_folder = createPath(target_folder, `${cls.name}`)
+        fs.writeFileSync(path.join(target_folder, `delete${cls.name}.feature`), generateDeleteFeature(cls))
+        fs.writeFileSync(path.join(cls_folder, `delete${cls.name}.ts`), generateDelete(cls))
     }
 }  
 

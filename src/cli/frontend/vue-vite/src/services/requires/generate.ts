@@ -1,17 +1,12 @@
 import path from "path"
-import { LocalEntity, Model, isLocalEntity, isModule } from "../../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../../language/generated/ast.js"
 import fs from "fs"
 import { expandToString } from "langium/generate";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
     
-    const modules =  model.abstractElements.filter(isModule);
-    
-    for(const mod of modules) {
-        for(const cls of mod.elements.filter(isLocalEntity)) {
-            fs.writeFileSync(path.join(target_folder, `${cls.name}Requires.ts`), generateRequires(cls))
-        }
-        
+    for(const cls of listClassCRUD) {
+        fs.writeFileSync(path.join(target_folder, `${cls.name}Requires.ts`), generateRequires(cls))
     }
 }
 

@@ -1,4 +1,4 @@
-import { Model } from "../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../language/generated/ast.js"
 import fs from "fs";
 import { createPath } from "../../../util/generator-utils.js";
 import { expandToString } from "langium/generate";
@@ -15,7 +15,7 @@ import { generate as generateStores } from "./stores/generate.js";
 import { generate as generateViews } from "./views/generate.js";
 import { generate as generateComposition } from "./composition/generate.js";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
 
     const src_folder = createPath(target_folder, "src")
     const assets_folder = createPath(src_folder, "assets")
@@ -52,15 +52,15 @@ export function generate(model: Model, target_folder: string) : void {
     fs.writeFileSync(path.join(src_folder, 'main.ts'), generateMain());
 
     generateComponents(model, components_folder);
-    generateLayouts(model, layouts_folder);
+    generateLayouts(model, listClassCRUD, layouts_folder);
     generatePlugins(model, plugins_folder)
     generateScss(model, scss_folder)
-    generateServices(model, services_folder)
+    generateServices(model, listClassCRUD, services_folder)
     generateTheme(model, themes_folder)
-    generateRouter(model, router_folder)
+    generateRouter(model, listClassCRUD, router_folder)
     genrateUtils(model, util_folder)
     generateStores(model, stores_folder)
-    generateViews(model, views_folder)
+    generateViews(model, listClassCRUD, views_folder)
     generateComposition(model, composition_folder)
 
 }  

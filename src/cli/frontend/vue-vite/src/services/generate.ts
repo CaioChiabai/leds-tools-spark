@@ -1,11 +1,11 @@
-import { Model } from "../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../language/generated/ast.js"
 import fs from "fs";
 import { createPath } from "../../../../util/generator-utils.js";
 import { expandToString } from "langium/generate";
 import { generate as generateRequires } from "./requires/generate.js"
 import path from "path";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
 
     const requires_folder = createPath(target_folder, "requires")
 
@@ -14,7 +14,7 @@ export function generate(model: Model, target_folder: string) : void {
     fs.writeFileSync(path.join(target_folder, "api.ts"), generateApi())
     fs.writeFileSync(path.join(requires_folder, "factory.ts"), generateFactory())
 
-    generateRequires(model, requires_folder)
+    generateRequires(model, listClassCRUD, requires_folder)
 
 }  
 
@@ -23,7 +23,7 @@ function generateApi(): string {
 import axios, { type AxiosInstance } from 'axios';
 
 const api: AxiosInstance = axios.create({
-  baseURL: 'https://localhost:8081'
+  baseURL: 'http://localhost:8080'
 })
 
 export default api;`

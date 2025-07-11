@@ -8,10 +8,8 @@ export function generate(model: Model, target_folder: string) : void {
 
     const modules =  model.abstractElements.filter(isModule);
 
-    const common_folder = target_folder + '/Common'
     const entities_folder = target_folder + '/Entities'
 
-    fs.mkdirSync(common_folder, {recursive: true})
     fs.mkdirSync(entities_folder, {recursive: true})
 
     for(const mod of modules) {
@@ -29,9 +27,6 @@ export function generate(model: Model, target_folder: string) : void {
       }
     }
 
-    fs.writeFileSync(path.join(common_folder,`IUnitOfWork.cs`), generateUnitOfWork(model))
-    fs.writeFileSync(path.join(common_folder,`IBaseRepository.cs`), generateBaseRepository(model))
-
     const security_folder = target_folder + "/Security"
     fs.mkdirSync(security_folder, {recursive: true})
     GenerateSecurity(model, security_folder)
@@ -40,7 +35,7 @@ export function generate(model: Model, target_folder: string) : void {
 function generateRepository(model: Model, cls: LocalEntity, package_name: string) : string {
     return expandToStringWithNL`
 using ${model.configuration?.name}.Domain.Entities;
-using ${model.configuration?.name}.Domain.Interfaces.Common;
+using ConectaFapes.Common.Infrastructure.Interfaces;
 
 namespace ${model.configuration?.name}.Domain.Interfaces.Entities
 {
@@ -49,35 +44,4 @@ namespace ${model.configuration?.name}.Domain.Interfaces.Entities
     }
 }
 `
-}
-
-function generateUnitOfWork(model: Model): string {
-    return expandToStringWithNL`
-namespace ${model.configuration?.name}.Domain.Interfaces.Common
-{
-    public interface IUnitOfWork
-    {
-        Task Commit(CancellationToken cancellationToken);
-    }
-}`
-}
-
-function generateBaseRepository(model: Model): string {
-    return expandToStringWithNL`
-using ${model.configuration?.name}.Domain.Common;
-
-namespace ${model.configuration?.name}.Domain.Interfaces.Common
-{
-    public interface IBaseRepository<T> where T : BaseEntity
-    {
-        Task Create(T entity);
-        Task Update(T entity);
-        Task Delete(T entity);
-        Task<bool> Any(Guid id);
-        IQueryable<T> GetById(Guid id);
-        IQueryable<T> GetAll();
-        void AddRange(ICollection<T> entities);
-        void DeleteRange(ICollection<T> entities);
-    }
-}`
 }

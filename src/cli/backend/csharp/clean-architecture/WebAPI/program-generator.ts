@@ -15,6 +15,7 @@ using ${model.configuration?.name}.Infrastructure;
 using ${model.configuration?.name}.Infrastructure.Context;
 using ${model.configuration?.name}.WebApi.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +26,19 @@ builder.Services.ConfigureApplicationApp();
 
 builder.Services.ConfigureCorsPolicy();
 
+builder.Services.ODataConfiguration();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.ODataConfiguration();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "${model.configuration?.name} API", Version = "v1" });
+
+    options.ResolveConflictingActions(x => x.First());
+
+    options.CustomSchemaIds(type => type.ToString());
+});
 
 #region Adição do Serilog
 //Log.Logger = new LoggerConfiguration()
@@ -57,7 +66,7 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

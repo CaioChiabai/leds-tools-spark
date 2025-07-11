@@ -26,10 +26,10 @@ function generateProjectsln(model: Model) : string {
 	EndProject
 	Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{COMPOSE-GUID}"
 	EndProject
-	Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${model.configuration?.name}.Domain.Test", "${model.configuration?.name}\\${model.configuration?.name}.Domain.Test\\${model.configuration?.name}.Domain.Test.csproj", "{TEST-GUID}"
-	EndProject
-	Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "${model.configuration?.name}.Infrastructure.Test", "${model.configuration?.name}\\${model.configuration?.name}.Infrastructure.Test\\${model.configuration?.name}.Infrastructure.Test.csproj", "{38820998-E6BD-479C-8BAE-36871A33F323}"
-	EndProject
+	// Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${model.configuration?.name}.Domain.Test", "${model.configuration?.name}\\${model.configuration?.name}.Domain.Test\\${model.configuration?.name}.Domain.Test.csproj", "{TEST-GUID}"
+	// EndProject
+	// Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "${model.configuration?.name}.Infrastructure.Test", "${model.configuration?.name}\\${model.configuration?.name}.Infrastructure.Test\\${model.configuration?.name}.Infrastructure.Test.csproj", "{38820998-E6BD-479C-8BAE-36871A33F323}"
+	// EndProject
 	Global
 		GlobalSection(SolutionConfigurationPlatforms) = preSolution
 			Debug|Any CPU = Debug|Any CPU

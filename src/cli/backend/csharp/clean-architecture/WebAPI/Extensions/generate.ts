@@ -1,20 +1,20 @@
 import { expandToString } from "langium/generate";
-import { Model } from "../../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../../language/generated/ast.js"
 import fs from "fs";
 import path from "path";
 import { generateODataExtension } from "./generateODataExtension.js";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassRefCRUD: LocalEntity[], target_folder: string) : void {
 
-    fs.writeFileSync(path.join(target_folder, "AccountContextExtension.cs"), generateAccountContext(model))
+    // fs.writeFileSync(path.join(target_folder, "AccountContextExtension.cs"), generateAccountContext(model))
     fs.writeFileSync(path.join(target_folder, "BuilderExtension.cs"), generateBuilderExtension(model))
     fs.writeFileSync(path.join(target_folder, "ClaimsPrincipalExtension.cs"), generateClaimsPrincipalExtension(model))
     fs.writeFileSync(path.join(target_folder, "ConfigureCorsPolicy.cs"), generateCorsPolicyExtension(model))
-    fs.writeFileSync(path.join(target_folder, "JwtExtension.cs"), generateJwtExtension(model))
-    fs.writeFileSync(path.join(target_folder, "ODataExtension.cs"), generateODataExtension(model))
+    // fs.writeFileSync(path.join(target_folder, "JwtExtension.cs"), generateJwtExtension(model))
+    fs.writeFileSync(path.join(target_folder, "ODataExtension.cs"), generateODataExtension(model, listClassRefCRUD))
 
 }
-
+/*
 function generateAccountContext(model: Model): string {
     return expandToString`
 using MediatR;
@@ -127,7 +127,7 @@ namespace ${model.configuration?.name}.WebApi.Extensions
 
     }
 }`
-}
+}*/
 
 function generateBuilderExtension(model: Model): string {
     return expandToString`
@@ -208,7 +208,7 @@ namespace ${model.configuration?.name}.WebApi.Extensions
     }
 }`
 }
-
+/*
 function generateJwtExtension(model: Model): string {
     return expandToString`
 using Microsoft.IdentityModel.Tokens;
@@ -258,7 +258,7 @@ namespace ${model.configuration?.name}.WebApi.Extensions
         }
     }
 }`
-}
+}*/
 
 function generateCorsPolicyExtension(model: Model): string {
     return expandToString`

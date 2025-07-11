@@ -9,6 +9,10 @@ LANGUAGETYPE returns string:
     ('python'|'java'|'csharp-minimal-api'|'csharp-clean-architecture')
 ;
 
+UCTYPE returns string:
+    ('crud' | 'notcrud')
+;
+
 QualifiedName returns string:
     ID ('.' ID)*
 ;

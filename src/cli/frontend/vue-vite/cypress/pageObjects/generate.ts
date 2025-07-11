@@ -1,4 +1,4 @@
-import { Attribute, isLocalEntity, isModule, LocalEntity, Model } from "../../../../../language/generated/ast.js"
+import { Attribute, isLocalEntity, LocalEntity, Model } from "../../../../../language/generated/ast.js"
 import fs from "fs";
 import { processRelations, RelationInfo } from "../../../../util/relations.js";
 import { generate as generateDetails } from "./generateDetails.js"
@@ -6,24 +6,17 @@ import { generate as generateIndex } from "./generateIndex.js"
 import { generate as generateForm } from "./generateForms.js"
 import path from "path";
 
-export function generate(model: Model, target_folder: string) : void {
-
-    const modules =  model.abstractElements.filter(isModule);
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
   
-    const all_entities = modules.map(module => module.elements.filter(isLocalEntity)).flat()
-  
-    const relation_maps = processRelations(all_entities)
+    const relation_maps = processRelations(listClassCRUD)
 
-    for(const mod of modules) {
-      //const enumx = mod.elements.filter(isEnumX)
-      for(const cls of mod.elements.filter(isLocalEntity)) {
-          const {} = getAttrsAndRelations(cls, relation_maps)
+    //const enumx = mod.elements.filter(isEnumX)
+    for(const cls of listClassCRUD) {
+        const {} = getAttrsAndRelations(cls, relation_maps)
 
-          fs.writeFileSync(path.join(target_folder, `Details${cls.name}.ts`), generateDetails(cls))
-          fs.writeFileSync(path.join(target_folder, `Index${cls.name}.ts`), generateIndex(cls))
-          fs.writeFileSync(path.join(target_folder, `Form${cls.name}.ts`), generateForm(cls))
-      }
-
+        fs.writeFileSync(path.join(target_folder, `Details${cls.name}.ts`), generateDetails(cls))
+        fs.writeFileSync(path.join(target_folder, `Index${cls.name}.ts`), generateIndex(cls))
+        fs.writeFileSync(path.join(target_folder, `Form${cls.name}.ts`), generateForm(cls))
     }
 }  
 

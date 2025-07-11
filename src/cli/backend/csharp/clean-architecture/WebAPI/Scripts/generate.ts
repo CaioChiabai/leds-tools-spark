@@ -1,23 +1,20 @@
 import path from "path"
-import { Model, isLocalEntity, isModule } from "../../../../../../language/generated/ast.js"
+import { LocalEntity, Model } from "../../../../../../language/generated/ast.js"
 import fs from "fs"
 import { expandToString } from "langium/generate";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassRefCRUD: LocalEntity[], target_folder: string) : void {
 
-    const modules =  model.abstractElements.filter(isModule);
     let alternocheck = ""
     let deletefrom = ""
     let altercheck = ""
     
-    for(const mod of modules) {
-        for(const cls of mod.elements.filter(isLocalEntity)) {
-            alternocheck += `ALTER TABLE ${cls.name} NOCHECK CONSTRAINT ALL;\n`
-            deletefrom += `DELETE FROM ${cls.name};\n`
-            altercheck += `ALTER TABLE ${cls.name} WITH CHECK CHECK CONSTRAINT ALL;\n`
-        }
-        
+    for(const cls of listClassRefCRUD) {
+        alternocheck += `ALTER TABLE ${cls.name} NOCHECK CONSTRAINT ALL;\n`
+        deletefrom += `DELETE FROM ${cls.name};\n`
+        altercheck += `ALTER TABLE ${cls.name} WITH CHECK CHECK CONSTRAINT ALL;\n`
     }
+
     fs.writeFileSync(path.join(target_folder, "delete.sql"), generatedeletes(alternocheck, deletefrom, altercheck));
     fs.writeFileSync(path.join(target_folder, "killdataase.sql"), generateKillDatabase(model));
 

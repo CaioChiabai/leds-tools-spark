@@ -28,7 +28,7 @@ function generateProjectsln(model: Model) : string {
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.OData.NewtonsoftJson" Version="8.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
@@ -37,6 +37,12 @@ function generateProjectsln(model: Model) : string {
 
   <ItemGroup>
     <ProjectReference Include="..\\${model.configuration?.name}.Domain\\${model.configuration?.name}.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	    <Reference Include="ConectaFapes.Common">
+		    <HintPath>.\\..\\conectafapes-packages\\ConectaFapes.Common.dll</HintPath>
+	    </Reference>
   </ItemGroup>
 
 </Project>

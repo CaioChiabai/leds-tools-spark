@@ -14,13 +14,14 @@ using ${model.configuration?.name}.Domain.Interfaces;
 using ${model.configuration?.name}.Infrastructure.Context;
 using ${model.configuration?.name}.Infrastructure.Repositories;
 using ${model.configuration?.name}.Domain.Interfaces.Security;
-using ${model.configuration?.name}.Domain.Interfaces.Common;
+// using ${model.configuration?.name}.Domain.Interfaces.Common;
 using ${model.configuration?.name}.Domain.Interfaces.Entities;
 using ${model.configuration?.name}.Infrastructure.Repositories.Entities;
 using ${model.configuration?.name}.Infrastructure.Security.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ConectaFapes.Common.Infrastructure.Interfaces;
 
 
 namespace ${model.configuration?.name}.Infrastructure

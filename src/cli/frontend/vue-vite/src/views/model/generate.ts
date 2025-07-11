@@ -7,7 +7,7 @@ import { generate as generateIndex } from "./generateIndex.js";
 import { processRelations, RelationInfo } from "../../../../../util/relations.js";
 import { generate as generateDetails } from "./generateDetails.js";
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: Model, listClassCRUD: LocalEntity[], target_folder: string) : void {
 
     const modules =  model.abstractElements.filter(isModule);
   
