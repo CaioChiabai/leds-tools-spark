@@ -7,6 +7,10 @@ import { generate as vueVitegenerate} from './frontend/vue-vite/generate.js';
 import { generate as csharpGenerator} from './backend/csharp/generator.js';
 import { generate as opaGenerate } from './opa/generator.js'
 import { processRelations, RelationInfo } from './util/relations.js';
+import { generateCleanArchCustom } from './backend/csharp/generator-clean-arch-custom.js';
+
+import { backend } from 'leds-spark-lib';
+export import LibModel = backend.Model;
 
 import path from 'path';
 import chalk from 'chalk';
@@ -57,15 +61,17 @@ export function generate(model: Model, usecase: UseCase, filePath: string, desti
     if (opts.only_back) {
         // Backend generation
         if (model.configuration?.language === 'python') {
-            pythonGenerate(model, final_destination);
+            pythonGenerate(model as unknown as LibModel.Model, final_destination);
+        } else if (model.configuration?.language === "csharp-clean-architecture-custom") {
+            generateCleanArchCustom(model, listClassCRUD, listRefCRUD, listUCsNotCRUD, final_destination);
         } else if (model.configuration?.language?.startsWith("csharp")) {
-            csharpGenerator(model, listClassCRUD, listRefCRUD, listUCsNotCRUD, final_destination);
+            csharpGenerator(model as unknown as LibModel.Model, final_destination);
         } else if (model.configuration?.language === "java") {
-            javaGenerate(model, final_destination);
+            javaGenerate(model as unknown as LibModel.Model, final_destination);
         }
     } else if (opts.only_front) {
         // Frontend generation
-        vueVitegenerate(model, listClassCRUD, final_destination);
+        vueVitegenerate(model as unknown as LibModel.Model, final_destination);
     } else if (opts.only_Documentation) {
         // Documentation generation
         docGenerate(model, final_destination);
@@ -76,17 +82,19 @@ export function generate(model: Model, usecase: UseCase, filePath: string, desti
         // OPA generation
         opaGenerate(model, final_destination);
     } else {
-        // Generate all
+        // Generate All
         if (model.configuration?.language === 'python') {
-            pythonGenerate(model, final_destination);
+            pythonGenerate(model as unknown as LibModel.Model, final_destination);
+        } else if (model.configuration?.language === "csharp-clean-architecture-custom") {
+            generateCleanArchCustom(model, listClassCRUD, listRefCRUD, listUCsNotCRUD, final_destination);
         } else if (model.configuration?.language?.startsWith("csharp")) {
-            csharpGenerator(model, listClassCRUD, listRefCRUD, listUCsNotCRUD, final_destination);
+            csharpGenerator(model as unknown as LibModel.Model, final_destination);
         } else if (model.configuration?.language === 'java') {
-            javaGenerate(model, final_destination);
+            javaGenerate(model as unknown as LibModel.Model, final_destination);
         }
 
         docGenerate(model, final_destination);
-        vueVitegenerate(model, listClassCRUD, final_destination); //listRefCRUD
+        vueVitegenerate(model as unknown as LibModel.Model, final_destination);
         opaGenerate(model, final_destination);
     }
 

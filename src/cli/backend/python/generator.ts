@@ -1,18 +1,14 @@
-import { Model } from "../../../language/generated/ast.js"
+
 import fs from "fs";
 
-import {generate as djangoGenerate} from "./django/back/generator.js"
-import { createPath } from "../../util/generator-utils.js";
+import { backend } from "leds-spark-lib"
 
-export function generate(model: Model, target_folder: string) : void {
+export import LibModel = backend.Model;
+export const generators = backend.csharp.generators;
 
-    const target_folder_back = createPath(target_folder, "backend")
+export function generate(model: LibModel.Model, target_folder: string): void {
+    
+    fs.mkdirSync(target_folder, { recursive: true });
 
-    //creating folders
-    fs.mkdirSync(target_folder_back, {recursive:true})
-
-
-    djangoGenerate(model,target_folder_back)
-
-
+    generators.django.generate(model, target_folder);
 }

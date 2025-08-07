@@ -6,7 +6,7 @@ DATATYPE returns string:
 ;
 
 LANGUAGETYPE returns string:
-    ('python'|'java'|'csharp-minimal-api'|'csharp-clean-architecture')
+    ('python'|'java'|'csharp-minimal-api'|'csharp-clean-architecture'|'csharp-clean-architecture-custom')
 ;
 
 UCTYPE returns string:

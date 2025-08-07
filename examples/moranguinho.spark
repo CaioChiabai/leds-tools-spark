@@ -1,7 +1,7 @@
 Configuration {
     software_name: "Morango"
     about: "Moranguinho!"
-    language: csharp-clean-architecture
+    language: csharp-clean-architecture-custom
 }
 
 module Moranguinho {

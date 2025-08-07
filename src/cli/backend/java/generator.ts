@@ -1,15 +1,16 @@
-import { Model } from "../../../language/generated/ast.js"
 import fs from "fs";
 
-import { generate as springbootGenerate } from "./springboot/generator.js";
+import { backend } from "leds-spark-lib"
 
+export import LibModel = backend.Model;
+export const generators = backend.csharp.generators;
 
-export function generate(model: Model, target_folder: string) : void {
+export function generate(model: LibModel.Model, target_folder: string) : void {
     const target_folder_back = target_folder+"/backend"
 
     //creating folders
     fs.mkdirSync(target_folder_back, {recursive:true})
     
-    springbootGenerate(model, target_folder_back)
+    generators.springboot.generate(model, target_folder_back)
     
 }  
