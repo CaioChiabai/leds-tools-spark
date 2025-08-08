@@ -1,7 +1,7 @@
 {
     "name": "spark-leds",
     "description": "A code generator that speeds up development by creating code in Django, Java, and C#.",
-    "version": "0.2.6",
+    "version": "0.2.4",
     "icon": "images/icon.png",
     "license": "Apache-2.0",
     "author": {

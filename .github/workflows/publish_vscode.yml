@@ -57,6 +57,7 @@ jobs:
       # Publish extension based on the branch
       - name: Publish to VSCode Marketplace
         run: |
+          npm ci --omit=dev
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             vsce publish --pat ${{ secrets.VSCODE_TOKEN }}
           elif [[ "${{ github.ref }}" == "refs/heads/developing" ]]; then
