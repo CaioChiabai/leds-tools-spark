@@ -44,6 +44,8 @@ jobs:
       
       - name: Patch version
         run: |
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@bot.com"
           npm version patch --no-git-tag-version
           git add package.json
           git add package-lock.json
