@@ -21,7 +21,9 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm i leds-spark-lib@latest
 
       # Build project
       - name: Build project
@@ -39,6 +41,14 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      
+      - name: Patch version
+        run: |
+          npm version patch --no-git-tag-version
+          git add package.json
+          git add package-lock.json
+          git commit -m "chore(package.json/package-lock.json): bump version [skip ci]"
+          git push
 
       # Install vsce (VS Code Extension Manager)
       - name: Install vsce
