@@ -1,0 +1,50 @@
+@startuml Modulo_carro
+    enum Sexo {
+         Feminino
+        Masculino
+    }
+    enum TipoAutomovel {
+         Carro
+        Moto
+    }
+    class Instrutor {
+    string: nome
+    string: cpfstring
+    string: numero
+
+    Aula: aulas
+    }
+
+    Instrutor "1" -- "1" Sexo : sexo>
+    Instrutor "1" -- "0..*" Aula : aulas >
+
+    class Automovel {
+    string: placa
+
+    Aula: aulas
+    }
+
+    Automovel "1" -- "1" TipoAutomovel : tipo>
+    Automovel "1" -- "0..*" Aula : aulas >
+
+    class Aluno {
+    string: nome
+    string: cpfstring
+    string: numero
+
+    Aula: aulas
+    }
+
+    Aluno "1" -- "1" Sexo : sexo>
+    Aluno "1" -- "0..*" Aula : aulas >
+
+    class Aula {
+
+    Aluno: aluno
+    Instrutor: instrutor
+    Automovel: automovel
+    }
+
+
+
+@enduml

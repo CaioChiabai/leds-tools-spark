@@ -1,0 +1,46 @@
+Configuration {
+    software_name: "a"
+    about: "a"
+    language: python
+    database_name: "banco"
+}
+module Modulo_carro {
+
+    entity Instrutor {
+        nome: string
+        cpfstring: string
+        numero: string
+        sexo uses Sexo
+        aulas OneToMany Aula
+    }
+
+    entity Automovel {
+        tipo uses TipoAutomovel
+        placa: string
+        aulas OneToMany Aula
+    }
+
+    entity Aluno {
+        nome: string
+        sexo uses Sexo
+        cpfstring: string
+        numero: string
+        aulas OneToMany Aula
+    }
+
+    entity Aula {
+        aluno ManyToOne Aluno
+        instrutor ManyToOne Instrutor
+        automovel ManyToOne Automovel
+    }
+
+    enum Sexo {
+        Feminino
+        Masculino
+    }
+
+    enum TipoAutomovel {
+        Carro
+        Moto
+    }
+}

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  opa:
+    image: openpolicyagent/opa:latest
+    container_name: opa-server
+    command: "run --server --log-level debug /policies/"
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./policies:/policies
