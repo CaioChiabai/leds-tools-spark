@@ -24,6 +24,8 @@ function createEntityViewSet(e: LocalEntity, has_actor: boolean) : string {
         'permission_classes = [Or(IsAdminUser, TokenHasReadWriteScope)]'
 
     const lines = [
+        `# ,
+        Cria "${e.name}" no sistema`,
         `class ${e.name}ViewSet(ModelViewSet):`,
         `${ident}queryset = ${e.name}.objects.all()`,
         `${ident}pagination_class = CustomPagination`,

@@ -1,6 +1,10 @@
 import { Attribute, EnumEntityAtribute, EnumX, LocalEntity, Module, Relation, isEnumX, isImportedEntity, isLocalEntity, isManyToMany, isModule, isModuleImport } from "../../../../../../language/generated/ast.js"
 import { base_ident, capitalizeString, topologicalSort } from "../../../../../util/generator-utils.js"
+export function split_on_camelcase(str: string): string {
+    return str.replace(/([a-z0-9])([A-Z])/g, '$1_$2');
+}
 const ident = base_ident
+
 
 export function generateModels(m: Module) : string {
     const get_entities_prereqs = (e: LocalEntity) => {
@@ -101,7 +105,7 @@ function generateEnum(e: EnumX) : string {
     }
 
     const lines = [
-        `class ${e.name}(models.TextChoices):`,
+        `${ident}class ${e.name}`,
         `${ident}"""${e.comment ?? ''}"""`,
         ...e.attributes.map(a => {
             const str = split_on_camelcase(a.name).toLowerCase()
@@ -116,7 +120,20 @@ function generateEnum(e: EnumX) : string {
 function generateModel(e: LocalEntity, set: Set<LocalEntity>) : string {
     const lines = [
         `class ${e.name}(${e.superType?.ref?.name ?? 'PolymorphicModel, models.Model'}):`,
-        `${ident}"""${e.comment ?? ''}"""`,
+        `${ident}"""Cria um novo objeto ${e.name} no banco de dados.`,
+        ``,
+        `${ident}Parâmetros:`,
+        `${ident}----------`, 
+        ...e.attributes.map(a => {
+            const str = split_on_camelcase(a.name).toLowerCase();
+            return `${ident}${str} : ${a.type ?? 'str'}`;
+        }),
+        `${ident}----------`,
+        `${ident}Retorno: `,
+        `${ident}Objeto ${e.name} criado no banco de dados`,
+        `${ident}----------`,
+        `${ident}Gerado por leds-tools-spark`,
+        `${ident}"""`,  
         ``,
         ...e.attributes.map(k => ident+generateAttribute(k)),
         ``,
