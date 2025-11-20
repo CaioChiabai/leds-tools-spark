@@ -4,6 +4,68 @@ import { LocalEntity, Model, Module, isLocalEntity, isModule,  } from "../../../
 import { expandToStringWithNL } from "langium/generate";
 import { capitalizeString } from "../../../../util/generator-utils.js";
 
+// ---------- helper: gerar XML-doc para endpoints ----------
+function renderEndpointDoc(
+    entityName: string,
+    opName: string,
+    params: Array<{ name: string; type?: string }>,
+    returnType?: string,
+    opts?: { layer?: string; generatedNote?: string }
+): string {
+    const layer = opts?.layer ?? "endpoint";
+    const generatedNote = opts?.generatedNote ?? "gerado por leds-tools-spark";
+
+    const lines: string[] = [];
+
+    // summary
+    lines.push("/// <summary>");
+    let summary = "";
+    switch (opName) {
+        case "GetAll":
+            summary = `Lista todos os ${entityName}`;
+            break;
+        case "GetById":
+            summary = `Obtém ${entityName} por id`;
+            break;
+        case "Post":
+            summary = `Cria um ${entityName}`;
+            break;
+        case "Put":
+            summary = `Atualiza um ${entityName}`;
+            break;
+        case "Delete":
+            summary = `Remove um ${entityName} por id`;
+            break;
+        default:
+            summary = `${opName} ${entityName}`;
+            break;
+    }
+    lines.push(`/// ${summary}`);
+    lines.push("/// </summary>");
+
+    // params
+    for (const p of params) {
+        lines.push(`/// <param name="${p.name}">${p.type ?? ""}</param>`);
+    }
+
+    // returns
+    if (returnType && returnType.toLowerCase() !== "void") {
+        lines.push(`/// <returns>${returnType}</returns>`);
+    }
+
+    // remarks
+    const remarks = [
+        `@generated ${generatedNote}`,
+        `@layer ${layer}`,
+        `@entity ${entityName}`,
+        `@operation ${opName}`,
+    ].join(" | ");
+
+    lines.push(`/// <remarks>${remarks}</remarks>`);
+
+    return lines.join("\n");
+}
+
 export function generate(model: Model, target_folder: string) : void{7
     console.log(model.configuration?.feature)
 
@@ -13,7 +75,8 @@ export function generate(model: Model, target_folder: string) : void{7
 function generateProgram(model: Model, target_folder: string) : string {
 
     const modules = model.abstractElements.filter(isModule);
-    const features = model.configuration?.feature
+    const features = model.configuration?.feature;
+
 
     return expandToStringWithNL`
     using Microsoft.AspNetCore.Identity;
@@ -54,8 +117,7 @@ function generateProgram(model: Model, target_folder: string) : string {
             }
 
             // Mapgroups:
-            ${generateMapGroups(features, modules)}
-            
+            ${generateMapGroups(features, modules, (model.configuration as any)?.gerarComentarios !== false)}
             app.MapGet("/", () => "Hello World!");
             ${generateFeatureCors(features)}
             app.Run();
@@ -63,6 +125,7 @@ function generateProgram(model: Model, target_folder: string) : string {
     }
     `
 }
+
 
 function generateModuleNames(modules: Module[]) : string {
     let moduleNames = "";
@@ -73,25 +136,158 @@ function generateModuleNames(modules: Module[]) : string {
   
 }
   
-function generateMapGroups(features : string | undefined, modules : Module[]) : string {
+function generateMapGroups(
+    features: string | undefined,
+    modules: Module[],
+    gerarComentarios = true
+): string {
     let mapGroups = "";
-    if (features == 'authentication') {
-        mapGroups += `// Authentication Mapgroup
-app.MapGroup("/identity").MapIdentityApi<IdentityUser>();`;
-    }
-    for (const mod of modules) {
-        mapGroups += `var ${mod.name.toLowerCase()} = app.MapGroup("/${mod.name}"); \n \n`;
-        const mod_classes = mod.elements.filter(isLocalEntity);
-        for (const classe of mod_classes) {
-            mapGroups += `var ${classe.name.toLowerCase()} = ${mod.name.toLowerCase()}.MapGroup("/${classe.name}"); \n`
-            mapGroups += `${classe.name.toLowerCase()}.MapGet("/", async (ContextDb db) =>\n    await db.${classe.name}s.ToListAsync());\n`
-            mapGroups += `${classe.name.toLowerCase()}.MapGet("/{id}", async (int id, ContextDb db) =>\n    await db.${classe.name}s.FindAsync(id) \n        is ${classe.name} ${classe.name.toLowerCase()} \n        ? Results.Ok(${classe.name.toLowerCase()}) \n        : Results.NotFound()); \n \n`
-            mapGroups += `${classe.name.toLowerCase()}.MapPost("/", async (${classe.name} ${classe.name.toLowerCase()}, ContextDb db) => \n{ \n    db.${classe.name}s.Add(${classe.name.toLowerCase()}); \n    await db.SaveChangesAsync(); \n    return Results.Created($"/${classe.name.toLowerCase()}/{${classe.name.toLowerCase()}.Id}", ${classe.name.toLowerCase()});\n}); \n \n`
-            mapGroups += `${classe.name.toLowerCase()}.MapPut("/{id}", async (int id, ${classe.name} input${classe.name}, ContextDb db) => \n{ \n    var ${classe.name.toLowerCase()} = await db.${classe.name}s.FindAsync(id); \n    if (${classe.name.toLowerCase()} is null) return Results.NotFound(); ${generateInputs(classe)}\n    await db.SaveChangesAsync(); \n    return Results.NoContent(); \n}); \n \n`
-            mapGroups += `${classe.name.toLowerCase()}.MapDelete("/{id}", async (int id, ContextDb db) => \n{ \n    if (await db.${classe.name}s.FindAsync(id) is ${classe.name} ${classe.name.toLowerCase()}) { \n        db.${classe.name}s.Remove(${classe.name.toLowerCase()}); \n        await db.SaveChangesAsync(); \n        return Results.NoContent(); \n    } \n \n return Results.NotFound(); \n}); \n \n`
 
+    if (features === "authentication") {
+        mapGroups += `// Authentication Mapgroup
+app.MapGroup("/identity").MapIdentityApi<IdentityUser>();\n\n`;
+    }
+
+    function pluralize(n: string) {
+        return `${n}s`;
+    }
+
+    function opName(entity: string, op: string) {
+        switch (op) {
+            case "GetAll":
+                return `Listar${entity}s`;
+            case "GetById":
+                return `Obter${entity}PorId`;
+            case "Post":
+                return `Criar${entity}`;
+            case "Put":
+                return `Atualizar${entity}`;
+            case "Delete":
+                return `Remover${entity}`;
+            default:
+                return `${op}${entity}`;
         }
     }
+
+    for (const mod of modules) {
+        const modVar = mod.name.toLowerCase();
+        mapGroups += `var ${modVar} = app.MapGroup("/${mod.name}");\n\n`;
+
+        const entities = mod.elements.filter(isLocalEntity);
+
+        for (const cls of entities) {
+            const entity = cls.name;
+            const groupVar = entity.toLowerCase();
+            const dbSet = pluralize(entity);
+
+            // HANDLER: GET ALL
+            {
+                const method = opName(entity, "GetAll");
+                const params = [{ name: "db", type: "ContextDb" }];
+                const doc = gerarComentarios
+                    ? renderEndpointDoc(entity, "GetAll", params, `${entity}[]`) + "\n"
+                    : "";
+
+                mapGroups += `${doc}static async Task<IResult> ${method}(ContextDb db) =>
+    Results.Ok(await db.${dbSet}.ToListAsync());\n\n`;
+            }
+
+            // HANDLER: GET BY ID
+            {
+                const method = opName(entity, "GetById");
+                const params = [
+                    { name: "id", type: "int" },
+                    { name: "db", type: "ContextDb" },
+                ];
+
+                const doc = gerarComentarios
+                    ? renderEndpointDoc(entity, "GetById", params, entity) + "\n"
+                    : "";
+
+                mapGroups += `${doc}static async Task<IResult> ${method}(int id, ContextDb db) =>
+    await db.${dbSet}.FindAsync(id) is ${entity} item ? Results.Ok(item) : Results.NotFound();\n\n`;
+            }
+
+            // HANDLER: POST
+            {
+                const method = opName(entity, "Post");
+                const paramName = entity.toLowerCase();
+
+                const params = [
+                    { name: paramName, type: entity },
+                    { name: "db", type: "ContextDb" },
+                ];
+
+                const doc = gerarComentarios
+                    ? renderEndpointDoc(entity, "Post", params, entity) + "\n"
+                    : "";
+
+                mapGroups += `${doc}static async Task<IResult> ${method}(${entity} ${paramName}, ContextDb db) {
+    db.${dbSet}.Add(${paramName});
+    await db.SaveChangesAsync();
+    return Results.Created($"/${paramName}/{${paramName}.Id}", ${paramName});
+}\n\n`;
+            }
+
+            // HANDLER: PUT
+            {
+                const method = opName(entity, "Put");
+                const params = [
+                    { name: "id", type: "int" },
+                    { name: `input${entity}`, type: entity },
+                    { name: "db", type: "ContextDb" },
+                ];
+
+                const doc = gerarComentarios
+                    ? renderEndpointDoc(entity, "Put", params, "IResult") + "\n"
+                    : "";
+
+                const updateCode =
+                    typeof generateInputs === "function"
+                        ? generateInputs(cls)
+                        : "";
+
+                mapGroups += `${doc}static async Task<IResult> ${method}(int id, ${entity} input${entity}, ContextDb db) {
+    var item = await db.${dbSet}.FindAsync(id);
+    if (item is null) return Results.NotFound();
+${updateCode}
+    await db.SaveChangesAsync();
+    return Results.NoContent();
+}\n\n`;
+            }
+
+            // HANDLER: DELETE
+            {
+                const method = opName(entity, "Delete");
+                const params = [
+                    { name: "id", type: "int" },
+                    { name: "db", type: "ContextDb" },
+                ];
+
+                const doc = gerarComentarios
+                    ? renderEndpointDoc(entity, "Delete", params, "IResult") + "\n"
+                    : "";
+
+                mapGroups += `${doc}static async Task<IResult> ${method}(int id, ContextDb db) {
+    if (await db.${dbSet}.FindAsync(id) is ${entity} item) {
+        db.${dbSet}.Remove(item);
+        await db.SaveChangesAsync();
+        return Results.NoContent();
+    }
+    return Results.NotFound();
+}\n\n`;
+            }
+
+            // MAPEAMENTO DAS ROTAS
+            mapGroups += `var ${groupVar} = ${modVar}.MapGroup("/${entity}");\n`;
+            mapGroups += `${groupVar}.MapGet("/", ${opName(entity, "GetAll")});\n`;
+            mapGroups += `${groupVar}.MapGet("/{id}", ${opName(entity, "GetById")});\n`;
+            mapGroups += `${groupVar}.MapPost("/", ${opName(entity, "Post")});\n`;
+            mapGroups += `${groupVar}.MapPut("/{id}", ${opName(entity, "Put")});\n`;
+            mapGroups += `${groupVar}.MapDelete("/{id}", ${opName(entity, "Delete")});\n\n`;
+        }
+    }
+
     return mapGroups;
 }
 

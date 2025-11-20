@@ -1,4 +1,9 @@
 .vscode/**
 .vscode-test/**
 .gitignore
+.env
+.env.*
+**/.env
+**/.env.*
 langium-quickstart.md
+
