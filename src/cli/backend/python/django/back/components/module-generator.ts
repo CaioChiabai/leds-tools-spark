@@ -7,12 +7,12 @@ const generateAPIView = backend.python.generateViewGenerator;
 const generateAppsComments = backend.python.generateAppsGenerator;
 const generatePaginationComments = backend.python.generatePaginationComments;
 const generateUtil = backend.python.generateUtil;
+const generateSignals = backend.python.generateSignals;
 
 import { base_ident, capitalizeString, createPath } from '../../../../../util/generator-utils.js'
 import { Attribute, Entity, LocalEntity, Model, Module, isLocalEntity, isModule, Actor } from '../../../../../../language/generated/ast.js'
 import path from 'path'
 import fs from 'fs'
-import { expandToStringWithNL } from 'langium/generate'
 const ident = base_ident
 
 export function generateModules(app: Model, target_folder: string) : void {
@@ -47,7 +47,7 @@ export function generateModules(app: Model, target_folder: string) : void {
 
     // Gera apenas os comentários de paginação pela lib
     fs.writeFileSync(path.join(MODULE_PATH, "/pagination.py"), generatePaginationComments())
-        fs.writeFileSync(path.join(MODULE_PATH, "/signals.py"), generateSignals(m, entity_to_actor))
+        fs.writeFileSync(path.join(MODULE_PATH, "/signals.py"), generateSignals(m as any, entity_to_actor as any));
         fs.writeFileSync(path.join(MODULE_PATH, "/serializers.py"), generateSerializer(m as any))
 
         const TEST_PATH = createPath(MODULE_PATH, "/test/unit/")
@@ -324,7 +324,7 @@ function createclasstest(e: LocalEntity, m: Module) : string {
 
     return lines.join('\n')
 }
-
+/*
 function generateSignals(m: Module, map: Map<Entity, Actor>) : string {
     const non_abstract_entities = m.elements.filter(isLocalEntity).filter(e => !e.is_abstract)
     const headerComment = [
@@ -403,4 +403,5 @@ function entitySignals(e: LocalEntity, map: Map<Entity, Actor>) : string {
         ${ident}pass
     `
 }
+*/
 
