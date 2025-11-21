@@ -1,14 +1,18 @@
+import { backend } from 'leds-spark-lib';
+const generateModels = backend.python.generateModelGenerator;
+const generateAdmin = backend.python.generateAdminGenerator;
+const generateSerializer = backend.python.generateSerializeGenerator;
+const generateURLAPI = backend.python.generateUrlGenerator;
+const generateAPIView = backend.python.generateViewGenerator;
+const generateAppsComments = backend.python.generateAppsGenerator;
+const generatePaginationComments = backend.python.generatePaginationComments;
+const generateUtil = backend.python.generateUtil;
+const generateSignals = backend.python.generateSignals;
 
-import { generateAdmin } from './admin-generator.js'
-import { generateModels } from './model-generator.js'
-import { generateURLAPI } from './url-generator.js'
-import { generateAPIView } from './view-generator.js'
-import { generateSerializer } from './serialize-generator.js'
 import { base_ident, capitalizeString, createPath } from '../../../../../util/generator-utils.js'
 import { Attribute, Entity, LocalEntity, Model, Module, isLocalEntity, isModule, Actor } from '../../../../../../language/generated/ast.js'
 import path from 'path'
 import fs from 'fs'
-import { expandToStringWithNL } from 'langium/generate'
 const ident = base_ident
 
 export function generateModules(app: Model, target_folder: string) : void {
@@ -28,21 +32,23 @@ export function generateModules(app: Model, target_folder: string) : void {
         fs.writeFileSync(path.join(createPath(MODULE_PATH, "migrations/"), "__init__.py"), "")
 
         fs.writeFileSync(path.join(MODULE_PATH, "/__init__.py"), create_init(m))
-        fs.writeFileSync(path.join(MODULE_PATH, "/models.py"), generateModels(m))
-        fs.writeFileSync(path.join(MODULE_PATH, "/admin.py"), generateAdmin(m))
+        fs.writeFileSync(path.join(MODULE_PATH, "/models.py"), generateModels(m as any))
+        fs.writeFileSync(path.join(MODULE_PATH, "/admin.py"), generateAdmin(m as any))
         fs.writeFileSync(path.join(MODULE_PATH, "/utils.py"), generateUtil())
 
         // fs.writeFileSync(APPS_PATH + m.name.toLowerCase + "/factory.py", m.createFactory)
 
-        fs.writeFileSync(path.join(MODULE_PATH, "/apps.py"), createApps(m))
+    // Gera apenas os comentários do app pela lib
+    fs.writeFileSync(path.join(MODULE_PATH, "/apps.py"), generateAppsComments(m as any))
 
       
-        fs.writeFileSync(path.join(MODULE_PATH, "/api_urls.py"), generateURLAPI(m))
-        fs.writeFileSync(path.join(MODULE_PATH, "/api_views.py"), generateAPIView(m, new Set(entity_to_actor.keys())))
+        fs.writeFileSync(path.join(MODULE_PATH, "/api_urls.py"), generateURLAPI(m as any))
+        fs.writeFileSync(path.join(MODULE_PATH, "/api_views.py"), generateAPIView(m as any, new Set(entity_to_actor.keys()) as any))
 
-        fs.writeFileSync(path.join(MODULE_PATH, "/pagination.py"), pagination())
-        fs.writeFileSync(path.join(MODULE_PATH, "/signals.py"), generateSignals(m, entity_to_actor))
-        fs.writeFileSync(path.join(MODULE_PATH, "/serializers.py"), generateSerializer(m))
+    // Gera apenas os comentários de paginação pela lib
+    fs.writeFileSync(path.join(MODULE_PATH, "/pagination.py"), generatePaginationComments())
+        fs.writeFileSync(path.join(MODULE_PATH, "/signals.py"), generateSignals(m as any, entity_to_actor as any));
+        fs.writeFileSync(path.join(MODULE_PATH, "/serializers.py"), generateSerializer(m as any))
 
         const TEST_PATH = createPath(MODULE_PATH, "/test/unit/")
         for(const e of m.elements.filter(isLocalEntity)) {
@@ -51,6 +57,8 @@ export function generateModules(app: Model, target_folder: string) : void {
     }
 }
 
+/*
+'é sempre as mesmas funções'
 function generateUtil() : string {
     const lines = [
         `from hashids import Hashids`,
@@ -59,31 +67,76 @@ function generateUtil() : string {
         `hashids = Hashids(settings.HASHIDS_SALT, min_length=8)`,
         ``,
         `def h_encode(id):`,
+        ``,
+        `${ident}"""`,
+        `${ident}@param id: ID numérico a ser codificado`,
+        `${ident}@return: ID codificado em hash`,
+
+        `${ident}Nota: Código gerado por leds-tools-spark`,
+        `${ident}"""`,
+        ``,
         `${ident}return hashids.encode(id)`,
         ``,
         `def h_decode(h):`,
+        ``,
+        `${ident}"""`,
+        `${ident}@param h: Hash a ser decodificado`,
+        `${ident}@return: ID decodificado`,
+
+        `${ident}Nota: Código gerado por leds-tools-spark`,
+        `${ident}"""`,
+         ``,
         `${ident}if z := hashids.decode(h):`,
         `${ident}${ident}return z[0]`,
         ``,
-        ``,
         `class HashIdConverter:`,
+        ``,
+        `${ident}"""`,
+        `${ident}Conversor de Hashids para URLs no Django.`,
+        `${ident}Nota: Código gerado por leds-tools-spark`,
+        `${ident}"""`,
+        ``,
         `${ident}regex = '[a-zA-Z0-9]{8,}'`,
         ``,
         `${ident}def to_python(self, value):`,
+        ``,
+        `${ident}${ident}"""`,
+        `${ident}${ident}@param value: Hash da URL`,
+        `${ident}${ident}@return: ID decodificado`,
+
+        `${ident}${ident}Nota: Código gerado por leds-tools-spark`,
+        `${ident}${ident}"""`,
+        ``,
         `${ident}${ident}return h_decode(value)`,
         ``,
         `${ident}def to_url(self, value):`,
+        `${ident}${ident}"""`,
+        `${ident}${ident}@param value: ID numérico`,
+        `${ident}${ident}@return: Hash codificado`,
+        `${ident}${ident}Nota: Código gerado por leds-tools-spark`,
+        `${ident}${ident}"""`,
+        ``,
         `${ident}${ident}return h_encode(value)`,
         ``
     ]
 
     return lines.join('\n')
 }
+/*
 
+/*
 function pagination() : string {
     const lines = [
         `from rest_framework import pagination`,
         `from rest_framework.response import Response`,
+        ``,
+        `"""`,
+        `Classe de paginação personalizada usando PageNumberPagination.`,
+            `@param self: Instância atual`,
+            `@param data: Dados paginados`,
+            `@return: Response com os dados e metadados`,
+            `Nota: Código gerado por leds-tools-spark`,
+        `"""`,
         ``,
         `class CustomPagination(pagination.PageNumberPagination):`,
         `${ident}page_size = 10`,
@@ -105,27 +158,39 @@ function pagination() : string {
 
     return lines.join('\n')
 }
-
+*/
 function create_init(m: Module) {
     return `default_app_config = 'apps.${m.name.toLowerCase()}.apps.${capitalizeString(m.name)}Config'\n`
 }
 
-function createApps(m: Module) : string {
-    const lines = [
-        `from django.apps import AppConfig`,
-        // `from django.utils.translation import gettext_lazy as _`,
-        ``,
-        `class ${capitalizeString(m.name)}Config(AppConfig):`,
-        `${ident}name  = 'apps.${m.name.toLowerCase()}'`,
-        `${ident}label = 'apps_${m.name.toLowerCase()}'`,
-        ``,
-        `${ident}def ready(self):`,
-        `${ident}${ident}import apps.${m.name.toLowerCase()}.signals`,
-        ``,
-    ]
 
-    return lines.join('\n')
-}
+//function createApps(m: Module) : string {
+  //  const lines = [
+    //    `from django.apps import AppConfig`,
+        // `from django.utils.translation import gettext_lazy as _`,
+     //   ``,
+       // `class ${capitalizeString(m.name)}Config(AppConfig):`,
+        //`${ident}"""`,
+        //`${ident}Configuração da aplicação ${m.name}.`,
+        //`${ident}Nota: Código gerado por leds-tools-spark`,
+        //`${ident}"""`,
+        //``,
+        //`${ident}name  = 'apps.${m.name.toLowerCase()}'`,
+        //`${ident}label = 'apps_${m.name.toLowerCase()}'`,
+        //``,
+        //`${ident}def ready(self):`,
+        //`${ident}"""`,
+        //`${ident}Executado quando a aplicação está pronta.`,
+        //`${ident}Importa os signals da aplicação.`,
+        //`${ident}Nota: Código gerado por leds-tools-spark`,
+        //`${ident}"""`,
+        //``,
+        //`${ident}${ident}import apps.${m.name.toLowerCase()}.signals`,
+        //``,
+    //]
+
+    //return lines.join('\n')
+//}
 
 function createattributeJsontest(e: LocalEntity) {
     return e.attributes.map(a => `'${a.name}' : ${createAtrributeValuesTest(a)}`)
@@ -259,10 +324,23 @@ function createclasstest(e: LocalEntity, m: Module) : string {
 
     return lines.join('\n')
 }
-
+/*
 function generateSignals(m: Module, map: Map<Entity, Actor>) : string {
     const non_abstract_entities = m.elements.filter(isLocalEntity).filter(e => !e.is_abstract)
-
+    const headerComment = [
+        `"""`,
+        `Signals para as entidades do módulo ${m.name}.`,
+        ``,
+        'Cada entidade possui os seguintes signals:',
+        '- pre_init / post_init: executados antes e depois da inicialização da instância',
+        '- pre_save / post_save: executados antes e depois de salvar a instância',
+       `- pre_delete / post_delete: executados antes e depois de deletar a instância`,
+        `- m2m_changed: executado quando campos ManyToMany são alterados`,
+        `Permite executar ações automáticas em momentos específicos do ciclo de vida das instâncias.`,
+        `Gerado automaticamente por leds-tools-spark.`,
+        `"""`,
+        ``
+    ]
     const lines = [
         `from .models import ${non_abstract_entities.map(e => e.name).join(', ')}`,
         `from django.db.models.signals import (`,
@@ -275,6 +353,7 @@ function generateSignals(m: Module, map: Map<Entity, Actor>) : string {
         `from django.contrib.auth.models import Group`,
         // `from .services import *`,
         ``,
+         ...headerComment,
         ...non_abstract_entities.flatMap(e => {return [
             `## Signals from ${e.name}`,
             entitySignals(e, map),
@@ -324,3 +403,5 @@ function entitySignals(e: LocalEntity, map: Map<Entity, Actor>) : string {
         ${ident}pass
     `
 }
+*/
+
