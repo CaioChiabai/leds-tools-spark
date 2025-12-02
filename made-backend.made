@@ -1,0 +1,238 @@
+// ==========================================
+// CONFIGURAÇÃO DO PROJETO
+// ==========================================
+
+project spark {
+    name: "LEDS Spark - Backend"
+    description: "Gerador automático de código"
+    startDate: 2025-08-06
+    dueDate: 2025-11-30
+}
+
+// ==========================================
+// TIMES (Comentado - não funciona em conta pessoal do GitHub)
+// ==========================================
+
+// Team Gestão: Arthur Valentim, Bruno Alves, Caio Chiabai, 
+//              Diego Rangel, Lucas Codeco, Murilo Dias
+
+// Team Desenvolvimento: 
+//   - dev1: Luma
+//   - dev2: Narley  
+//   - dev3: Samiya
+
+// ==========================================
+// PROCESSO (Template reutilizável)
+// ==========================================
+
+process desenvolvimento_spark {
+    name: "Processo de Desenvolvimento do Spark"
+    description: "Processo para implementação de features no gerador"
+    
+    activity analise {
+        name: "Análise e Pesquisa"
+        description: "Pesquisar padrões e boas práticas"
+        
+        task pesquisa {
+            name: "Pesquisar Padrões"
+            description: "Estudar documentação oficial e boas práticas"
+        }
+        
+        task definir_padrao {
+            name: "Definir Padrão"
+            description: "Estabelecer padrão a ser seguido"
+        }
+    }
+    
+    activity implementacao {
+        name: "Implementação"
+        description: "Desenvolvimento da funcionalidade"
+        
+        task criar_templates {
+            name: "Criar Templates"
+            description: "Desenvolver templates de código"
+        }
+        
+        task integrar_gerador {
+            name: "Integrar ao Gerador"
+            description: "Incorporar ao módulo de geração"
+        }
+        
+        task testes {
+            name: "Testes"
+            description: "Testar geração de código"
+        }
+    }
+    
+    activity validacao {
+        name: "Validação e Revisão"
+        description: "Garantir qualidade e padronização"
+        
+        task revisao_codigo {
+            name: "Revisão de Código"
+            description: "Revisar código gerado"
+        }
+        
+        task validacao_padroes {
+            name: "Validar Padrões"
+            description: "Verificar conformidade com padrões"
+        }
+    }
+}
+
+// ==========================================
+// BACKLOG - SEGUNDA ENTREGA
+// Documentação Automática no Gerador Spark
+// ==========================================
+
+backlog doc_automatica {
+    name: "Documentação Automática - Segunda Entrega"
+    description: "Implementar geração automática de doc-comments em todas as funções geradas pelo Spark"
+    
+    epic implementacao_doc_comments {
+        name: "Implementar Doc-Comments Automáticos"
+        description: "Adicionar comentários de documentação nas funções geradas pelo Spark"
+        process: desenvolvimento_spark
+        Criterions:
+            "Comentários gerados automaticamente",
+            "Suporte para Java, Python e C#",
+            "Documentação atualizada"
+        
+        story padroes_templates {
+            name: "Definir Padrões e Templates"
+            description: "Pesquisar e criar templates de documentação para cada linguagem"
+            activity: desenvolvimento_spark.analise
+            Requirements:
+                "Pesquisar padrões oficiais (Javadoc, docstring, XML comments)",
+                "Criar templates para cada linguagem",
+                "Documentar padrões escolhidos"
+            
+            task pesquisar_padroes {
+                name: "Pesquisar Padrões de Documentação"
+                description: "Estudar padrões oficiais: Javadoc (Oracle), docstrings (PEP 257), XML comments (Microsoft)"
+                Deliverables: "Documento com padrões por linguagem"
+            }
+        }
+        
+        story implementar_geracao {
+            name: "Implementar Geração de Comentários"
+            description: "Integrar geração automática de doc-comments no Spark"
+            activity: desenvolvimento_spark.implementacao
+            Requirements:
+                "Identificar módulo gerador do Spark",
+                "Implementar para Java, Python e C#",
+                "Testar geração de código"
+            
+            task implementar_java {
+                name: "Implementar para Java"
+                description: "Criar função que gera Javadoc e integrar ao gerador"
+                Deliverables: "Geração de Javadoc funcional"
+            }
+            
+            task implementar_python {
+                name: "Implementar para Python"
+                description: "Criar função que gera docstrings e integrar ao gerador"
+                Deliverables: "Geração de docstrings funcional"
+            }
+            
+            task implementar_csharp {
+                name: "Implementar para C#"
+                description: "Criar função que gera XML comments e integrar ao gerador"
+                Deliverables: "Geração de XML comments funcional"
+            }
+        }
+        
+        story validacao_docs {
+            name: "Validação e Documentação"
+            description: "Validar qualidade e criar documentação da feature"
+            activity: desenvolvimento_spark.validacao
+            Requirements:
+                "Testar geração em todas linguagens",
+                "Revisar qualidade dos comentários",
+                "Criar documentação para usuários"
+            
+            task testar_validar {
+                name: "Testar e Validar"
+                description: "Testar geração de CRUD completo, validar formatação e padrões"
+                Deliverables: "Testes executados com sucesso"
+            }
+            
+            task criar_documentacao {
+                name: "Criar Documentação"
+                description: "Atualizar README e criar exemplos de uso da nova funcionalidade"
+                Deliverables: "Documentação completa"
+            }
+        }
+    }
+}
+
+// ==========================================
+// SPRINTS
+// ==========================================
+
+sprint sprint_unica {
+    name: "Segunda Entrega"
+    description: "Implementação completa da geração de doc-comments"
+    startDate: 2025-09-29
+    endDate: 2025-11-02
+    status: PLANNED
+    comment: "Sprint única com 8 tasks distribuídas entre os 3 desenvolvedores"
+    
+    sprintbacklog backlog_sprint {
+        // Pesquisa e Templates
+        item doc_automatica.implementacao_doc_comments.padroes_templates.pesquisar_padroes {
+            status: TODO
+        }
+        
+        // Implementação Java
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_java {
+            status: TODO
+        }
+        
+        // Implementação Python
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_python {
+            status: TODO
+        }
+        
+        // Implementação C#
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_csharp {
+            status: TODO
+        }
+        
+        // Testes e Validação
+        item doc_automatica.implementacao_doc_comments.validacao_docs.testar_validar {
+            status: TODO
+        }
+        
+        // Documentação
+        item doc_automatica.implementacao_doc_comments.validacao_docs.criar_documentacao {
+            status: TODO
+        }
+    }
+}
+
+// ==========================================
+// ROADMAP
+// ==========================================
+
+roadmap roadmap_doc_automatica {
+    name: "Roadmap Segunda Entrega"
+    description: "Planejamento da entrega de documentação automática"
+    
+    milestone entrega_completa {
+        name: "Entrega Completa"
+        description: "Todas as linguagens suportadas com doc-comments"
+        startDate: 2025-09-29
+        dueDate: 2025-11-02
+        status: PLANNED
+        
+        release v1_0 {
+            name: "Versão 1.0 - Doc-Comments"
+            description: "Release com geração automática de documentação"
+            version: "1.0.0"
+            dueDate: 2025-11-02
+            status: PLANNED
+            item: doc_automatica.implementacao_doc_comments
+        }
+    }
+}
