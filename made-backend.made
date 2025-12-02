@@ -191,7 +191,7 @@ sprint sprint_unica {
         
         // Implementação Python
         item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_python {
-            status: TODO
+            status: DONE
         }
         
         // Implementação C#
@@ -211,9 +211,6 @@ sprint sprint_unica {
     }
 }
 
-// ==========================================
-// ROADMAP
-// ==========================================
 
 roadmap roadmap_doc_automatica {
     name: "Roadmap Segunda Entrega"
@@ -233,6 +230,25 @@ roadmap roadmap_doc_automatica {
             dueDate: 2025-11-02
             status: PLANNED
             item: doc_automatica.implementacao_doc_comments
+        }
+    }
+}
+
+sprint sprint_csharp_java {
+    name: "Terceira Entrega - C# e Java"
+    description: "Implementação de doc-comments para C# e Java"
+    startDate: 2025-12-08
+    endDate: 2025-12-08
+    status: PLANNED
+    comment: "Sprint para completar as implementações pendentes de C# e Java"
+    
+    sprintbacklog backlog_sprint_csharp_java {
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_java {
+            status: TODO
+        }
+        
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_csharp {
+            status: TODO
         }
     }
 }

@@ -1,0 +1,561 @@
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600">
+        <defs>
+          <style>
+            text { font-family: Arial, sans-serif; }
+            .title { font-size: 24px; font-weight: bold; }
+            .label { font-size: 14px; }
+            .value { font-size: 12px; fill: #666666; }
+            .axis { font-size: 12px; }
+            .legend { font-size: 14px; }
+          </style>
+        </defs>
+
+        <rect width="1200" height="600" fill="white"/>
+
+        
+            <line 
+              x1="70" 
+              y1="50" 
+              x2="1050" 
+              y2="50" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="50" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >8</text>
+          
+            <line 
+              x1="70" 
+              y1="95" 
+              x2="1050" 
+              y2="95" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="95" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >7</text>
+          
+            <line 
+              x1="70" 
+              y1="140" 
+              x2="1050" 
+              y2="140" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="140" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >6</text>
+          
+            <line 
+              x1="70" 
+              y1="185" 
+              x2="1050" 
+              y2="185" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="185" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >6</text>
+          
+            <line 
+              x1="70" 
+              y1="230" 
+              x2="1050" 
+              y2="230" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="230" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >5</text>
+          
+            <line 
+              x1="70" 
+              y1="275" 
+              x2="1050" 
+              y2="275" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="275" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >4</text>
+          
+            <line 
+              x1="70" 
+              y1="320" 
+              x2="1050" 
+              y2="320" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="320" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >3</text>
+          
+            <line 
+              x1="70" 
+              y1="365" 
+              x2="1050" 
+              y2="365" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="365" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >2</text>
+          
+            <line 
+              x1="70" 
+              y1="410" 
+              x2="1050" 
+              y2="410" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="410" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >2</text>
+          
+            <line 
+              x1="70" 
+              y1="455" 
+              x2="1050" 
+              y2="455" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="455" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >1</text>
+          
+            <line 
+              x1="70" 
+              y1="500" 
+              x2="1050" 
+              y2="500" 
+              stroke="#e5e7eb" 
+              stroke-dasharray="4"
+            />
+            <text 
+              x="60" 
+              y="500" 
+              text-anchor="end" 
+              class="axis" 
+              dominant-baseline="middle"
+            >0</text>
+          
+
+        <path 
+          d="M70,50 L84,50 L98,50 L112,50 L126,50 L140,50 L154,50 L168,50 L182,50 L196,50 L210,50 L224,50 L238,50 L252,50 L266,50 L280,50 L294,50 L308,50 L322,50 L336,50 L350,50 L364,50 L378,50 L392,50 L406,50 L420,50 L434,50 L448,50 L462,50 L476,50 L490,50 L504,50 L518,50 L532,50 L546,50 L560,50 L574,50 L588,50 L602,50 L616,50 L630,50 L644,50 L658,50 L672,50 L686,50 L700,50 L714,50 L728,50 L742,50 L756,50 L770,50 L784,50 L798,50 L812,50 L826,50 L840,50 L854,50 L868,50 L882,50 L896,50 L910,50 L924,50 L938,50 L952,50 L966,50 L980,50 L994,50 L1008,50 L1022,50 L1036,50 L1050,50 L1050,500 L1036,500 L1022,500 L1008,500 L994,500 L980,500 L966,500 L952,500 L938,500 L924,500 L910,500 L896,500 L882,500 L868,500 L854,500 L840,500 L826,500 L812,500 L798,500 L784,500 L770,500 L756,500 L742,500 L728,500 L714,500 L700,500 L686,500 L672,500 L658,500 L644,500 L630,500 L616,500 L602,500 L588,500 L574,500 L560,500 L546,500 L532,500 L518,500 L504,500 L490,500 L476,500 L462,500 L448,500 L434,500 L420,500 L406,500 L392,500 L378,500 L364,500 L350,500 L336,500 L322,500 L308,500 L294,500 L280,500 L266,500 L252,500 L238,500 L224,500 L210,500 L196,500 L182,500 L168,500 L154,500 L140,500 L126,500 L112,500 L98,500 L84,500 L70,500 Z" 
+          fill="#ef4444" 
+          opacity="0.8"
+        />
+        <path 
+          d="M70,500 L84,500 L98,500 L112,500 L126,500 L140,500 L154,500 L168,500 L182,500 L196,500 L210,500 L224,500 L238,500 L252,500 L266,500 L280,500 L294,500 L308,500 L322,500 L336,500 L350,500 L364,500 L378,500 L392,500 L406,500 L420,500 L434,500 L448,500 L462,500 L476,500 L490,500 L504,500 L518,500 L532,500 L546,500 L560,500 L574,500 L588,500 L602,500 L616,500 L630,500 L644,500 L658,500 L672,500 L686,500 L700,500 L714,500 L728,500 L742,500 L756,500 L770,500 L784,500 L798,500 L812,500 L826,500 L840,500 L854,500 L868,500 L882,500 L896,500 L910,500 L924,500 L938,500 L952,500 L966,500 L980,500 L994,500 L1008,500 L1022,500 L1036,500 L1050,500 L1050,500 L1036,500 L1022,500 L1008,500 L994,500 L980,500 L966,500 L952,500 L938,500 L924,500 L910,500 L896,500 L882,500 L868,500 L854,500 L840,500 L826,500 L812,500 L798,500 L784,500 L770,500 L756,500 L742,500 L728,500 L714,500 L700,500 L686,500 L672,500 L658,500 L644,500 L630,500 L616,500 L602,500 L588,500 L574,500 L560,500 L546,500 L532,500 L518,500 L504,500 L490,500 L476,500 L462,500 L448,500 L434,500 L420,500 L406,500 L392,500 L378,500 L364,500 L350,500 L336,500 L322,500 L308,500 L294,500 L280,500 L266,500 L252,500 L238,500 L224,500 L210,500 L196,500 L182,500 L168,500 L154,500 L140,500 L126,500 L112,500 L98,500 L84,500 L70,500 Z" 
+          fill="#f59e0b" 
+          opacity="0.8"
+        />
+        <path 
+          d="M70,500 L84,500 L98,500 L112,500 L126,500 L140,500 L154,500 L168,500 L182,500 L196,500 L210,500 L224,500 L238,500 L252,500 L266,500 L280,500 L294,500 L308,500 L322,500 L336,500 L350,500 L364,500 L378,500 L392,500 L406,500 L420,500 L434,500 L448,500 L462,500 L476,500 L490,500 L504,500 L518,500 L532,500 L546,500 L560,500 L574,500 L588,500 L602,500 L616,500 L630,500 L644,500 L658,500 L672,500 L686,500 L700,500 L714,500 L728,500 L742,500 L756,500 L770,500 L784,500 L798,500 L812,500 L826,500 L840,500 L854,500 L868,500 L882,500 L896,500 L910,500 L924,500 L938,500 L952,500 L966,500 L980,500 L994,500 L1008,500 L1022,500 L1036,500 L1050,500 L1050,500 L1036,500 L1022,500 L1008,500 L994,500 L980,500 L966,500 L952,500 L938,500 L924,500 L910,500 L896,500 L882,500 L868,500 L854,500 L840,500 L826,500 L812,500 L798,500 L784,500 L770,500 L756,500 L742,500 L728,500 L714,500 L700,500 L686,500 L672,500 L658,500 L644,500 L630,500 L616,500 L602,500 L588,500 L574,500 L560,500 L546,500 L532,500 L518,500 L504,500 L490,500 L476,500 L462,500 L448,500 L434,500 L420,500 L406,500 L392,500 L378,500 L364,500 L350,500 L336,500 L322,500 L308,500 L294,500 L280,500 L266,500 L252,500 L238,500 L224,500 L210,500 L196,500 L182,500 L168,500 L154,500 L140,500 L126,500 L112,500 L98,500 L84,500 L70,500 Z" 
+          fill="#22c55e" 
+          opacity="0.8"
+        />
+
+        <line 
+          x1="70" 
+          y1="50" 
+          x2="70" 
+          y2="500" 
+          stroke="black" 
+          stroke-width="2"
+        />
+        <line 
+          x1="70" 
+          y1="500" 
+          x2="1050" 
+          y2="500" 
+          stroke="black" 
+          stroke-width="2"
+        />
+
+        
+              <text 
+                transform="rotate(-45 70 520)"
+                x="70"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >dom. 28/09</text>
+            
+              <text 
+                transform="rotate(-45 98 520)"
+                x="98"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >ter. 30/09</text>
+            
+              <text 
+                transform="rotate(-45 126 520)"
+                x="126"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qui. 02/10</text>
+            
+              <text 
+                transform="rotate(-45 154 520)"
+                x="154"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sáb. 04/10</text>
+            
+              <text 
+                transform="rotate(-45 182 520)"
+                x="182"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >seg. 06/10</text>
+            
+              <text 
+                transform="rotate(-45 210 520)"
+                x="210"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qua. 08/10</text>
+            
+              <text 
+                transform="rotate(-45 238 520)"
+                x="238"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sex. 10/10</text>
+            
+              <text 
+                transform="rotate(-45 266 520)"
+                x="266"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >dom. 12/10</text>
+            
+              <text 
+                transform="rotate(-45 294 520)"
+                x="294"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >ter. 14/10</text>
+            
+              <text 
+                transform="rotate(-45 322 520)"
+                x="322"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qui. 16/10</text>
+            
+              <text 
+                transform="rotate(-45 350 520)"
+                x="350"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sáb. 18/10</text>
+            
+              <text 
+                transform="rotate(-45 378 520)"
+                x="378"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >seg. 20/10</text>
+            
+              <text 
+                transform="rotate(-45 406 520)"
+                x="406"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qua. 22/10</text>
+            
+              <text 
+                transform="rotate(-45 434 520)"
+                x="434"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sex. 24/10</text>
+            
+              <text 
+                transform="rotate(-45 462 520)"
+                x="462"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >dom. 26/10</text>
+            
+              <text 
+                transform="rotate(-45 490 520)"
+                x="490"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >ter. 28/10</text>
+            
+              <text 
+                transform="rotate(-45 518 520)"
+                x="518"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qui. 30/10</text>
+            
+              <text 
+                transform="rotate(-45 546 520)"
+                x="546"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sáb. 01/11</text>
+            
+              <text 
+                transform="rotate(-45 574 520)"
+                x="574"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >seg. 03/11</text>
+            
+              <text 
+                transform="rotate(-45 602 520)"
+                x="602"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qua. 05/11</text>
+            
+              <text 
+                transform="rotate(-45 630 520)"
+                x="630"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sex. 07/11</text>
+            
+              <text 
+                transform="rotate(-45 658 520)"
+                x="658"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >dom. 09/11</text>
+            
+              <text 
+                transform="rotate(-45 686 520)"
+                x="686"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >ter. 11/11</text>
+            
+              <text 
+                transform="rotate(-45 714 520)"
+                x="714"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qui. 13/11</text>
+            
+              <text 
+                transform="rotate(-45 742 520)"
+                x="742"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sáb. 15/11</text>
+            
+              <text 
+                transform="rotate(-45 770 520)"
+                x="770"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >seg. 17/11</text>
+            
+              <text 
+                transform="rotate(-45 798 520)"
+                x="798"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qua. 19/11</text>
+            
+              <text 
+                transform="rotate(-45 826 520)"
+                x="826"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sex. 21/11</text>
+            
+              <text 
+                transform="rotate(-45 854 520)"
+                x="854"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >dom. 23/11</text>
+            
+              <text 
+                transform="rotate(-45 882 520)"
+                x="882"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >ter. 25/11</text>
+            
+              <text 
+                transform="rotate(-45 910 520)"
+                x="910"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qui. 27/11</text>
+            
+              <text 
+                transform="rotate(-45 938 520)"
+                x="938"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sáb. 29/11</text>
+            
+              <text 
+                transform="rotate(-45 966 520)"
+                x="966"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >seg. 01/12</text>
+            
+              <text 
+                transform="rotate(-45 994 520)"
+                x="994"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >qua. 03/12</text>
+            
+              <text 
+                transform="rotate(-45 1022 520)"
+                x="1022"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >sex. 05/12</text>
+            
+              <text 
+                transform="rotate(-45 1050 520)"
+                x="1050"
+                y="520"
+                text-anchor="end"
+                class="axis"
+              >dom. 07/12</text>
+            
+
+        <text 
+          transform="rotate(-90 30 300)" 
+          x="30" 
+          y="300" 
+          text-anchor="middle" 
+          class="label"
+        >Número de Tarefas</text>
+
+        <text 
+          x="600" 
+          y="580" 
+          text-anchor="middle" 
+          class="label"
+        >Período do Projeto</text>
+
+        <text 
+          x="600" 
+          y="30" 
+          text-anchor="middle" 
+          class="title"
+        >Cumulative Flow Diagram - Projeto Completo</text>
+
+        <g transform="translate(1070, 50)">
+          <rect width="15" height="15" fill="#ef4444" rx="2"/>
+          <text x="25" y="12" class="legend">TODO</text>
+          
+          <rect y="25" width="15" height="15" fill="#f59e0b" rx="2"/>
+          <text x="25" y="37" class="legend">DOING</text>
+          
+          <rect y="50" width="15" height="15" fill="#22c55e" rx="2"/>
+          <text x="25" y="62" class="legend">DONE</text>
+          
+          <text x="0" y="90" class="value">
+            Período: 2025-09-29 - 
+            2025-12-08
+          </text>
+          <text x="0" y="110" class="value">
+            Total de Tasks: 8
+          </text>
+          <text x="0" y="130" class="value">
+            Total de Sprints: 2
+          </text>
+        </g>
+      </svg>
+    

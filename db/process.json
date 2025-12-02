@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "id": "desenvolvimento_spark",
+      "name": "Processo de Desenvolvimento do Spark",
+      "description": "Processo para implementação de features no gerador",
+      "activities": [
+        {
+          "id": "analise",
+          "name": "Análise e Pesquisa",
+          "description": "Pesquisar padrões e boas práticas",
+          "tasks": [
+            {
+              "id": "pesquisa",
+              "name": "Pesquisar Padrões",
+              "description": "Estudar documentação oficial e boas práticas"
+            },
+            {
+              "id": "definir_padrao",
+              "name": "Definir Padrão",
+              "description": "Estabelecer padrão a ser seguido"
+            }
+          ]
+        },
+        {
+          "id": "implementacao",
+          "name": "Implementação",
+          "description": "Desenvolvimento da funcionalidade",
+          "tasks": [
+            {
+              "id": "criar_templates",
+              "name": "Criar Templates",
+              "description": "Desenvolver templates de código"
+            },
+            {
+              "id": "integrar_gerador",
+              "name": "Integrar ao Gerador",
+              "description": "Incorporar ao módulo de geração"
+            },
+            {
+              "id": "testes",
+              "name": "Testes",
+              "description": "Testar geração de código"
+            }
+          ]
+        },
+        {
+          "id": "validacao",
+          "name": "Validação e Revisão",
+          "description": "Garantir qualidade e padronização",
+          "tasks": [
+            {
+              "id": "revisao_codigo",
+              "name": "Revisão de Código",
+              "description": "Revisar código gerado"
+            },
+            {
+              "id": "validacao_padroes",
+              "name": "Validar Padrões",
+              "description": "Verificar conformidade com padrões"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

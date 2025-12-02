@@ -1,0 +1,128 @@
+{
+  "data": [
+    {
+      "id": "sprint_unica",
+      "name": "Segunda Entrega",
+      "description": "Implementação completa da geração de doc-comments",
+      "startDate": "2025-09-29",
+      "endDate": "2025-11-02",
+      "status": "PLANNED",
+      "sprintItems": [
+        {
+          "id": "padroes_templates.pesquisar_padroes",
+          "assignee": {},
+          "issue": {
+            "id": "padroes_templates.pesquisar_padroes",
+            "title": "Pesquisar Padrões de Documentação",
+            "description": "Estudar padrões oficiais: Javadoc (Oracle), docstrings (PEP 257), XML comments (Microsoft)",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        },
+        {
+          "id": "implementar_geracao.implementar_java",
+          "assignee": {},
+          "issue": {
+            "id": "implementar_geracao.implementar_java",
+            "title": "Implementar para Java",
+            "description": "Criar função que gera Javadoc e integrar ao gerador",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        },
+        {
+          "id": "implementar_geracao.implementar_python",
+          "assignee": {},
+          "issue": {
+            "id": "implementar_geracao.implementar_python",
+            "title": "Implementar para Python",
+            "description": "Criar função que gera docstrings e integrar ao gerador",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        },
+        {
+          "id": "implementar_geracao.implementar_csharp",
+          "assignee": {},
+          "issue": {
+            "id": "implementar_geracao.implementar_csharp",
+            "title": "Implementar para C#",
+            "description": "Criar função que gera XML comments e integrar ao gerador",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        },
+        {
+          "id": "validacao_docs.testar_validar",
+          "assignee": {},
+          "issue": {
+            "id": "validacao_docs.testar_validar",
+            "title": "Testar e Validar",
+            "description": "Testar geração de CRUD completo, validar formatação e padrões",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        },
+        {
+          "id": "validacao_docs.criar_documentacao",
+          "assignee": {},
+          "issue": {
+            "id": "validacao_docs.criar_documentacao",
+            "title": "Criar Documentação",
+            "description": "Atualizar README e criar exemplos de uso da nova funcionalidade",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        }
+      ]
+    },
+    {
+      "id": "sprint_csharp_java",
+      "name": "Terceira Entrega - C# e Java",
+      "description": "Implementação de doc-comments para C# e Java",
+      "startDate": "2025-12-08",
+      "endDate": "2025-12-08",
+      "status": "PLANNED",
+      "sprintItems": [
+        {
+          "id": "implementar_geracao.implementar_java",
+          "assignee": {},
+          "issue": {
+            "id": "implementar_geracao.implementar_java",
+            "title": "Implementar para Java",
+            "description": "Criar função que gera Javadoc e integrar ao gerador",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        },
+        {
+          "id": "implementar_geracao.implementar_csharp",
+          "assignee": {},
+          "issue": {
+            "id": "implementar_geracao.implementar_csharp",
+            "title": "Implementar para C#",
+            "description": "Criar função que gera XML comments e integrar ao gerador",
+            "type": "taskbacklog",
+            "subtype": "",
+            "depends": []
+          },
+          "status": "TODO"
+        }
+      ]
+    }
+  ]
+}
