@@ -3,100 +3,72 @@
     {
       "id": "roadmap_doc_automatica",
       "name": "Roadmap Segunda Entrega",
-      "description": "Planejamento da entrega de documentação automática",
+      "description": "Planejamento da entrega de documentação automática em duas partes",
       "milestones": [
         {
-          "id": "entrega_completa",
-          "name": "Entrega Completa",
-          "description": "Todas as linguagens suportadas com doc-comments",
+          "id": "entrega_parte1",
+          "name": "Entrega Parte 1 - Concluída",
+          "description": "Pesquisa, Python, testes e documentação finalizados",
           "startDate": "2025-09-29",
           "dueDate": "2025-11-02",
+          "status": "COMPLETED",
+          "releases": [
+            {
+              "id": "v0_5",
+              "version": "0.5.0",
+              "name": "Versão 0.5 - Python + Base",
+              "description": "Release parcial com Python e infraestrutura",
+              "dueDate": "2025-11-02",
+              "status": "RELEASED",
+              "issues": [
+                {
+                  "id": ".validacao_docs",
+                  "title": "Validação e Documentação",
+                  "description": "Validar qualidade e criar documentação da feature",
+                  "type": "atomicuserstory",
+                  "issues": [
+                    {
+                      "id": ".validacao_docs.testar_validar",
+                      "title": "Testar e Validar",
+                      "description": "Testar geração de CRUD completo, validar formatação e padrões",
+                      "type": "taskbacklog",
+                      "depends": []
+                    },
+                    {
+                      "id": ".validacao_docs.criar_documentacao",
+                      "title": "Criar Documentação",
+                      "description": "Atualizar README e criar exemplos de uso da nova funcionalidade",
+                      "type": "taskbacklog",
+                      "depends": []
+                    }
+                  ],
+                  "depends": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "entrega_completa",
+          "name": "Entrega Completa Final",
+          "description": "Todas as linguagens suportadas com doc-comments",
+          "startDate": "2025-12-01",
+          "dueDate": "2025-12-08",
           "status": "PLANNED",
           "releases": [
             {
               "id": "v1_0",
               "version": "1.0.0",
-              "name": "Versão 1.0 - Doc-Comments",
-              "description": "Release com geração automática de documentação",
-              "dueDate": "2025-11-02",
+              "name": "Versão 1.0 - Doc-Comments Completo",
+              "description": "Release final com todas as linguagens",
+              "dueDate": "2025-12-08",
               "status": "PLANNED",
               "issues": [
                 {
-                  "id": ".implementacao_doc_comments",
-                  "title": "Implementar Doc-Comments Automáticos",
-                  "description": "Adicionar comentários de documentação nas funções geradas pelo Spark",
-                  "type": "epic",
-                  "issues": [
-                    {
-                      "id": ".implementacao_doc_comments.padroes_templates",
-                      "title": "Definir Padrões e Templates",
-                      "description": "Pesquisar e criar templates de documentação para cada linguagem",
-                      "type": "atomicuserstory",
-                      "issues": [
-                        {
-                          "id": ".implementacao_doc_comments.padroes_templates.pesquisar_padroes",
-                          "title": "Pesquisar Padrões de Documentação",
-                          "description": "Estudar padrões oficiais: Javadoc (Oracle), docstrings (PEP 257), XML comments (Microsoft)",
-                          "type": "taskbacklog",
-                          "depends": []
-                        }
-                      ],
-                      "depends": []
-                    },
-                    {
-                      "id": ".implementacao_doc_comments.implementar_geracao",
-                      "title": "Implementar Geração de Comentários",
-                      "description": "Integrar geração automática de doc-comments no Spark",
-                      "type": "atomicuserstory",
-                      "issues": [
-                        {
-                          "id": ".implementacao_doc_comments.implementar_geracao.implementar_java",
-                          "title": "Implementar para Java",
-                          "description": "Criar função que gera Javadoc e integrar ao gerador",
-                          "type": "taskbacklog",
-                          "depends": []
-                        },
-                        {
-                          "id": ".implementacao_doc_comments.implementar_geracao.implementar_python",
-                          "title": "Implementar para Python",
-                          "description": "Criar função que gera docstrings e integrar ao gerador",
-                          "type": "taskbacklog",
-                          "depends": []
-                        },
-                        {
-                          "id": ".implementacao_doc_comments.implementar_geracao.implementar_csharp",
-                          "title": "Implementar para C#",
-                          "description": "Criar função que gera XML comments e integrar ao gerador",
-                          "type": "taskbacklog",
-                          "depends": []
-                        }
-                      ],
-                      "depends": []
-                    },
-                    {
-                      "id": ".implementacao_doc_comments.validacao_docs",
-                      "title": "Validação e Documentação",
-                      "description": "Validar qualidade e criar documentação da feature",
-                      "type": "atomicuserstory",
-                      "issues": [
-                        {
-                          "id": ".implementacao_doc_comments.validacao_docs.testar_validar",
-                          "title": "Testar e Validar",
-                          "description": "Testar geração de CRUD completo, validar formatação e padrões",
-                          "type": "taskbacklog",
-                          "depends": []
-                        },
-                        {
-                          "id": ".implementacao_doc_comments.validacao_docs.criar_documentacao",
-                          "title": "Criar Documentação",
-                          "description": "Atualizar README e criar exemplos de uso da nova funcionalidade",
-                          "type": "taskbacklog",
-                          "depends": []
-                        }
-                      ],
-                      "depends": []
-                    }
-                  ],
+                  "id": ".implementar_csharp",
+                  "title": "Implementar para C#",
+                  "description": "Criar função que gera XML comments e integrar ao gerador",
+                  "type": "taskbacklog",
                   "depends": []
                 }
               ]

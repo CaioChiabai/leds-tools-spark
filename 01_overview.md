@@ -10,8 +10,8 @@ Gerador automático de código
 
 | Sprint | Período | Duração | Total Tasks | Concluídas | Em Progresso | Pendentes | Velocidade | Eficiência |
 |--------|---------|----------|-------------|------------|--------------|-----------|------------|------------|
-| Segunda Entrega | 28/09 - 01/11 | 34 dias | 6 | 0 (0.0%) | 0 | 6 | 0/dia | 0.0% |
-| Terceira Entrega - C# e Java | 07/12 - 07/12 | 0 dias | 2 | 0 (0.0%) | 0 | 2 | NaN/dia | 0.0% |
+| Segunda Entrega - Parte 1 | 28/09 - 01/11 | 34 dias | 6 | 0 (0.0%) | 0 | 6 | 0/dia | 0.0% |
+| Segunda Entrega - Parte 2 | 30/11 - 07/12 | 7 dias | 2 | 0 (0.0%) | 0 | 2 | 0/dia | 0.0% |
 
 ## Análise Geral
 
@@ -21,7 +21,7 @@ Gerador automático de código
 
 ### Notas
 - Período Total: 28/09 - 07/12
-- Média de Duração das Sprints: 17 dias
+- Média de Duração das Sprints: 21 dias
 
 *Última atualização: dezembro de 2025*
 
@@ -37,8 +37,8 @@ Gerador automático de código
 ### ✅ PROJETO PROVAVELMENTE SERÁ CONCLUÍDO NO PRAZO
 
 - **Probabilidade de conclusão no prazo**: 100.0%
-- **Data mais provável de conclusão**: qui., 11/12/2025
-- **Dias em relação ao planejado**: 4 dias
+- **Data mais provável de conclusão**: sex., 12/12/2025
+- **Dias em relação ao planejado**: 5 dias
 - **Status**: ⚠️ Pequeno Atraso
 
 ### 📊 Métricas do Projeto
@@ -46,15 +46,15 @@ Gerador automático de código
 | Métrica | Valor | Status |
 |---------|--------|--------|
 | Velocidade Atual | 1.0 tarefas/dia | ❌ |
-| Velocidade Necessária | 1.3 tarefas/dia | - |
-| Dias Restantes | 6 dias | - |
+| Velocidade Necessária | 1.6 tarefas/dia | - |
+| Dias Restantes | 5 dias | - |
 | Tarefas Restantes | 8 tarefas | - |
 
 ### 📅 Previsões de Data de Conclusão
 
 | Data | Probabilidade | Status | Observação |
 |------|---------------|---------|------------|
-| qui., 11/12/2025 | 100.0% | ⚠️ Pequeno Atraso | 📍 Data mais provável |
+| sex., 12/12/2025 | 100.0% | ⚠️ Pequeno Atraso | 📍 Data mais provável |
 
 ## 💡 Recomendações
 
@@ -71,4 +71,4 @@ Gerador automático de código
 - **Simulações Realizadas**: 10,000
 
 ---
-*Relatório gerado em 01/12/2025, 22:05:29*
+*Relatório gerado em 03/12/2025, 20:06:40*

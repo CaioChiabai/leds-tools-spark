@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "id": "gestao",
+      "name": "Time de Gestão",
+      "description": "",
+      "teamMembers": [
+        {
+          "id": "arthur",
+          "name": "Arthur Valentim"
+        },
+        {
+          "id": "bruno",
+          "name": "Bruno Alves"
+        },
+        {
+          "id": "caio",
+          "name": "Caio Chiabai"
+        },
+        {
+          "id": "diego",
+          "name": "Diego Rangel"
+        },
+        {
+          "id": "lucas",
+          "name": "Lucas Codeco"
+        },
+        {
+          "id": "murilo",
+          "name": "Murilo Dias"
+        }
+      ]
+    },
+    {
+      "id": "desenvolvimento",
+      "name": "Time de Desenvolvimento",
+      "description": "",
+      "teamMembers": [
+        {
+          "id": "luma",
+          "name": "Luma"
+        },
+        {
+          "id": "narley",
+          "name": "Narley"
+        },
+        {
+          "id": "samiya",
+          "name": "Samiya"
+        }
+      ]
+    }
+  ]
+}

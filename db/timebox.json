@@ -2,15 +2,19 @@
   "data": [
     {
       "id": "sprint_unica",
-      "name": "Segunda Entrega",
-      "description": "Implementação completa da geração de doc-comments",
+      "name": "Segunda Entrega - Parte 1",
+      "description": "Primeira parte da implementação da geração de doc-comments",
       "startDate": "2025-09-29",
       "endDate": "2025-11-02",
-      "status": "PLANNED",
+      "status": "CLOSED",
       "sprintItems": [
         {
           "id": "padroes_templates.pesquisar_padroes",
-          "assignee": {},
+          "assignee": {
+            "id": "narley",
+            "name": "Narley",
+            "email": "narley@example.com"
+          },
           "issue": {
             "id": "padroes_templates.pesquisar_padroes",
             "title": "Pesquisar Padrões de Documentação",
@@ -19,7 +23,7 @@
             "subtype": "",
             "depends": []
           },
-          "status": "TODO"
+          "status": "DONE"
         },
         {
           "id": "implementar_geracao.implementar_java",
@@ -36,7 +40,11 @@
         },
         {
           "id": "implementar_geracao.implementar_python",
-          "assignee": {},
+          "assignee": {
+            "id": "narley",
+            "name": "Narley",
+            "email": "narley@example.com"
+          },
           "issue": {
             "id": "implementar_geracao.implementar_python",
             "title": "Implementar para Python",
@@ -45,7 +53,7 @@
             "subtype": "",
             "depends": []
           },
-          "status": "TODO"
+          "status": "DONE"
         },
         {
           "id": "implementar_geracao.implementar_csharp",
@@ -62,7 +70,11 @@
         },
         {
           "id": "validacao_docs.testar_validar",
-          "assignee": {},
+          "assignee": {
+            "id": "lucas",
+            "name": "Lucas Codeco",
+            "email": "lucas@example.com"
+          },
           "issue": {
             "id": "validacao_docs.testar_validar",
             "title": "Testar e Validar",
@@ -71,11 +83,15 @@
             "subtype": "",
             "depends": []
           },
-          "status": "TODO"
+          "status": "DONE"
         },
         {
           "id": "validacao_docs.criar_documentacao",
-          "assignee": {},
+          "assignee": {
+            "id": "caio",
+            "name": "Caio Chiabai",
+            "email": "caio@example.com"
+          },
           "issue": {
             "id": "validacao_docs.criar_documentacao",
             "title": "Criar Documentação",
@@ -84,21 +100,25 @@
             "subtype": "",
             "depends": []
           },
-          "status": "TODO"
+          "status": "DONE"
         }
       ]
     },
     {
-      "id": "sprint_csharp_java",
-      "name": "Terceira Entrega - C# e Java",
-      "description": "Implementação de doc-comments para C# e Java",
-      "startDate": "2025-12-08",
+      "id": "sprint_parte2",
+      "name": "Segunda Entrega - Parte 2",
+      "description": "Conclusão da implementação: Java e C#",
+      "startDate": "2025-12-01",
       "endDate": "2025-12-08",
       "status": "PLANNED",
       "sprintItems": [
         {
           "id": "implementar_geracao.implementar_java",
-          "assignee": {},
+          "assignee": {
+            "id": "luma",
+            "name": "Luma",
+            "email": "luma@example.com"
+          },
           "issue": {
             "id": "implementar_geracao.implementar_java",
             "title": "Implementar para Java",
@@ -107,11 +127,15 @@
             "subtype": "",
             "depends": []
           },
-          "status": "TODO"
+          "status": "DOING"
         },
         {
           "id": "implementar_geracao.implementar_csharp",
-          "assignee": {},
+          "assignee": {
+            "id": "luma",
+            "name": "Luma",
+            "email": "luma@example.com"
+          },
           "issue": {
             "id": "implementar_geracao.implementar_csharp",
             "title": "Implementar para C#",
@@ -120,7 +144,7 @@
             "subtype": "",
             "depends": []
           },
-          "status": "TODO"
+          "status": "DOING"
         }
       ]
     }

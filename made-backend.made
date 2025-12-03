@@ -6,20 +6,29 @@ project spark {
     name: "LEDS Spark - Backend"
     description: "Gerador automático de código"
     startDate: 2025-08-06
-    dueDate: 2025-11-30
+    dueDate: 2025-12-08
 }
 
 // ==========================================
-// TIMES (Comentado - não funciona em conta pessoal do GitHub)
+// TIMES 
 // ==========================================
 
-// Team Gestão: Arthur Valentim, Bruno Alves, Caio Chiabai, 
-//              Diego Rangel, Lucas Codeco, Murilo Dias
+team gestao {
+    name: "Time de Gestão"
+    teammember arthur {name: "Arthur Valentim"}
+    teammember bruno {name: "Bruno Alves"}
+    teammember caio {name: "Caio Chiabai"}
+    teammember diego {name: "Diego Rangel"}
+    teammember lucas {name: "Lucas Codeco"}
+    teammember murilo {name: "Murilo Dias"}
+}
 
-// Team Desenvolvimento: 
-//   - dev1: Luma
-//   - dev2: Narley  
-//   - dev3: Samiya
+team desenvolvimento {
+    name: "Time de Desenvolvimento"
+    teammember luma {name: "Luma"}
+    teammember narley {name: "Narley"}
+    teammember samiya {name: "Samiya"}
+}
 
 // ==========================================
 // PROCESSO (Template reutilizável)
@@ -171,84 +180,111 @@ backlog doc_automatica {
 // ==========================================
 
 sprint sprint_unica {
-    name: "Segunda Entrega"
-    description: "Implementação completa da geração de doc-comments"
+    name: "Segunda Entrega - Parte 1"
+    description: "Primeira parte da implementação da geração de doc-comments"
     startDate: 2025-09-29
     endDate: 2025-11-02
-    status: PLANNED
-    comment: "Sprint única com 8 tasks distribuídas entre os 3 desenvolvedores"
+    status: CLOSED
+    comment: "Sprint concluída: pesquisa, Python, testes e documentação finalizados"
     
     sprintbacklog backlog_sprint {
-        // Pesquisa e Templates
         item doc_automatica.implementacao_doc_comments.padroes_templates.pesquisar_padroes {
-            status: TODO
+            status: DONE
+            assignee: desenvolvimento.narley
         }
         
-        // Implementação Java
         item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_java {
             status: TODO
         }
         
-        // Implementação Python
         item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_python {
             status: DONE
+            assignee: desenvolvimento.narley
         }
         
-        // Implementação C#
         item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_csharp {
             status: TODO
         }
         
-        // Testes e Validação
         item doc_automatica.implementacao_doc_comments.validacao_docs.testar_validar {
-            status: TODO
+            status: DONE
+            assignee: gestao.lucas
         }
         
-        // Documentação
         item doc_automatica.implementacao_doc_comments.validacao_docs.criar_documentacao {
-            status: TODO
+            status: DONE
+            assignee: gestao.caio
         }
     }
 }
 
+// ==========================================
+// SPRINT ATUAL - SEGUNDA ENTREGA PARTE 2
+// ==========================================
+
+sprint sprint_parte2 {
+    name: "Segunda Entrega - Parte 2"
+    description: "Conclusão da implementação: Java e C#"
+    startDate: 2025-12-01
+    endDate: 2025-12-08
+    status: PLANNED
+    comment: "Sprint final: completar implementação para Java e C#"
+    
+    sprintbacklog backlog_sprint_parte2 {
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_java {
+            status: DOING
+            assignee: desenvolvimento.luma
+        }
+        
+        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_csharp {
+            status: DOING
+            assignee: desenvolvimento.luma
+        }
+    }
+}
+
+// ==========================================
+// ROADMAP
+// ==========================================
 
 roadmap roadmap_doc_automatica {
     name: "Roadmap Segunda Entrega"
-    description: "Planejamento da entrega de documentação automática"
+    description: "Planejamento da entrega de documentação automática em duas partes"
     
-    milestone entrega_completa {
-        name: "Entrega Completa"
-        description: "Todas as linguagens suportadas com doc-comments"
+    milestone entrega_parte1 {
+        name: "Entrega Parte 1 - Concluída"
+        description: "Pesquisa, Python, testes e documentação finalizados"
         startDate: 2025-09-29
         dueDate: 2025-11-02
+        status: COMPLETED
+        
+        release v0_5 {
+            name: "Versão 0.5 - Python + Base"
+            description: "Release parcial com Python e infraestrutura"
+            version: "0.5.0"
+            dueDate: 2025-11-02
+            status: RELEASED
+            item: doc_automatica.implementacao_doc_comments.padroes_templates
+            item: doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_python
+            item: doc_automatica.implementacao_doc_comments.validacao_docs
+        }
+    }
+    
+    milestone entrega_completa {
+        name: "Entrega Completa Final"
+        description: "Todas as linguagens suportadas com doc-comments"
+        startDate: 2025-12-01
+        dueDate: 2025-12-08
         status: PLANNED
         
         release v1_0 {
-            name: "Versão 1.0 - Doc-Comments"
-            description: "Release com geração automática de documentação"
+            name: "Versão 1.0 - Doc-Comments Completo"
+            description: "Release final com todas as linguagens"
             version: "1.0.0"
-            dueDate: 2025-11-02
+            dueDate: 2025-12-08
             status: PLANNED
-            item: doc_automatica.implementacao_doc_comments
-        }
-    }
-}
-
-sprint sprint_csharp_java {
-    name: "Terceira Entrega - C# e Java"
-    description: "Implementação de doc-comments para C# e Java"
-    startDate: 2025-12-08
-    endDate: 2025-12-08
-    status: PLANNED
-    comment: "Sprint para completar as implementações pendentes de C# e Java"
-    
-    sprintbacklog backlog_sprint_csharp_java {
-        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_java {
-            status: TODO
-        }
-        
-        item doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_csharp {
-            status: TODO
+            item: doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_java
+            item: doc_automatica.implementacao_doc_comments.implementar_geracao.implementar_csharp
         }
     }
 }
