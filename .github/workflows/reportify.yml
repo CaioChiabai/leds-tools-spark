@@ -1,10 +1,8 @@
 name: ReportifyBot Run
 
 on:
-  
-   workflow_dispatch:
-  
-   schedule:
+  workflow_dispatch:
+  schedule:
     - cron: "0 8 * * *"
 
 jobs:
@@ -26,15 +24,10 @@ jobs:
           pip install -r requirements.txt
           
       - name: Rodar bot (relatório + resumo + mensagens privadas)
-
         env:
           MY_API_REPORTFY: ${{ secrets.DISCORD_BOT_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
           GITHUB_TOKEN: ${{ secrets.REPORTFY_GIT_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.REPOSITORY }}
-          
         run: python ReportfyBot.py
-
-
-
